@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>FileCloud</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-header">
+                <h1>Dashboard</h1>
+                <p>Welcome to FileCloud! Manage your files with ease.</p>
+            </div>
+
+            <!-- Your main content goes here -->
+            <div class="file-grid">
+                <!-- File items will go here -->
+            </div>
+        </main>
+
+        <script>
+            // Mobile sidebar toggle
+            function toggleSidebar() {
+                const sidebar = document.querySelector(".sidebar");
+                sidebar.classList.toggle("open");
+            }
+
+            // Handle sign out
+            function handleSignOut() {
+                if (confirm("Are you sure you want to sign out?")) {
+                    // Add your sign out logic here
+                    console.log("Signing out...");
+                    // window.location.href = 'signin.html';
+                }
+            }
+
+            // Handle nav item clicks
+            document.querySelectorAll(".nav-item").forEach((item) => {
+                item.addEventListener("click", function () {
+                    if (!this.classList.contains("signout")) {
+                        // Remove active class from all items
+                        document
+                            .querySelectorAll(".nav-item")
+                            .forEach((nav) => {
+                                nav.classList.remove("active");
+                            });
+                        // Add active class to clicked item
+                        this.classList.add("active");
+
+                        // Handle different actions based on which nav item was clicked
+                        const action = this.textContent.trim();
+                        handleNavAction(action);
+                    }
+                });
+            });
+
+            function handleNavAction(action) {
+                switch (action) {
+                    case "Upload":
+                        console.log("Upload action triggered");
+                        // Add upload functionality
+                        break;
+                    case "Rename":
+                        console.log("Rename action triggered");
+                        // Add rename functionality
+                        break;
+                    case "Share":
+                        console.log("Share action triggered");
+                        // Add share functionality
+                        break;
+                    case "Download":
+                        console.log("Download action triggered");
+                        // Add download functionality
+                        break;
+                }
+            }
+
+            // Show mobile menu button on small screens
+            function checkScreenSize() {
+                const mobileBtn = document.querySelector(".mobile-menu-btn");
+                if (window.innerWidth <= 768) {
+                    mobileBtn.style.display = "flex";
+                } else {
+                    mobileBtn.style.display = "none";
+                    document.querySelector(".sidebar").classList.remove("open");
+                }
+            }
+
+            window.addEventListener("resize", checkScreenSize);
+            checkScreenSize();
+        </script>
+    </body>
+</html>

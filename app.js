@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("node:path");
+const homeRouter = require("./routes/home");
 const signupRouter = require("./routes/signup");
 const loginRouter = require("./routes/login");
 const forgotPasswordRouter = require("./routes/forgotPassword");
@@ -19,6 +20,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/forgot-password", forgotPasswordRouter);
 app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
+app.use("/", homeRouter);
 
 app.listen(PORT, (err) => {
     if (err) throw err;
