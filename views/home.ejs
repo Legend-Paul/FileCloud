@@ -1,95 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>FileCloud</title>
+        <title>FileCloud - Dashboard</title>
         <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
-        <!-- Main Content -->
-        <main class="main-content">
-            <div class="content-header">
-                <h1>Dashboard</h1>
-                <p>Welcome to FileCloud! Manage your files with ease.</p>
-            </div>
+        <div class="app-container">
+            <!-- Sidebar -->
+            <%- include("partials/sidebar.ejs") %>
 
-            <!-- Your main content goes here -->
-            <div class="file-grid">
-                <!-- File items will go here -->
-            </div>
-        </main>
+            <!-- Main Content -->
+            <main class="main-content">
+                <div class="content-header">
+                    <h1>Welcome to FileCloud</h1>
+                    <p>
+                        Manage your documents, images, and videos in one place
+                    </p>
+                </div>
+
+                <div class="files-grid">
+                    <div class="file-card">
+                        <h3>Recent Documents</h3>
+                        <p>12 files</p>
+                    </div>
+                    <div class="file-card">
+                        <h3>Images</h3>
+                        <p>45 files</p>
+                    </div>
+                    <div class="file-card">
+                        <h3>Videos</h3>
+                        <p>8 files</p>
+                    </div>
+                    <div class="file-card">
+                        <h3>Shared Files</h3>
+                        <p>5 files</p>
+                    </div>
+                </div>
+            </main>
+        </div>
 
         <script>
-            // Mobile sidebar toggle
-            function toggleSidebar() {
-                const sidebar = document.querySelector(".sidebar");
-                sidebar.classList.toggle("open");
+            // Simple theme toggle functionality
+            function toggleTheme() {
+                const html = document.documentElement;
+                const currentTheme = html.getAttribute("data-theme");
+                const newTheme = currentTheme === "dark" ? "light" : "dark";
+                html.setAttribute("data-theme", newTheme);
+                localStorage.setItem("theme", newTheme);
             }
 
-            // Handle sign out
-            function handleSignOut() {
-                if (confirm("Are you sure you want to sign out?")) {
-                    // Add your sign out logic here
-                    console.log("Signing out...");
-                    // window.location.href = 'signin.html';
-                }
+            // Initialize theme
+            function initTheme() {
+                const savedTheme = localStorage.getItem("theme") || "dark";
+                document.documentElement.setAttribute("data-theme", savedTheme);
             }
 
-            // Handle nav item clicks
+            // Add click handlers to nav items
             document.querySelectorAll(".nav-item").forEach((item) => {
-                item.addEventListener("click", function () {
-                    if (!this.classList.contains("signout")) {
-                        // Remove active class from all items
-                        document
-                            .querySelectorAll(".nav-item")
-                            .forEach((nav) => {
-                                nav.classList.remove("active");
-                            });
-                        // Add active class to clicked item
-                        this.classList.add("active");
-
-                        // Handle different actions based on which nav item was clicked
-                        const action = this.textContent.trim();
-                        handleNavAction(action);
-                    }
+                item.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    document
+                        .querySelectorAll(".nav-item")
+                        .forEach((nav) => nav.classList.remove("active"));
+                    this.classList.add("active");
                 });
             });
 
-            function handleNavAction(action) {
-                switch (action) {
-                    case "Upload":
-                        console.log("Upload action triggered");
-                        // Add upload functionality
-                        break;
-                    case "Rename":
-                        console.log("Rename action triggered");
-                        // Add rename functionality
-                        break;
-                    case "Share":
-                        console.log("Share action triggered");
-                        // Add share functionality
-                        break;
-                    case "Download":
-                        console.log("Download action triggered");
-                        // Add download functionality
-                        break;
-                }
-            }
+            // Sign out button handler
+            document
+                .querySelector(".sign-out-btn")
+                .addEventListener("click", function () {
+                    if (confirm("Are you sure you want to sign out?")) {
+                        alert("Signing out...");
+                        // Add your sign out logic here
+                    }
+                });
 
-            // Show mobile menu button on small screens
-            function checkScreenSize() {
-                const mobileBtn = document.querySelector(".mobile-menu-btn");
-                if (window.innerWidth <= 768) {
-                    mobileBtn.style.display = "flex";
-                } else {
-                    mobileBtn.style.display = "none";
-                    document.querySelector(".sidebar").classList.remove("open");
-                }
-            }
-
-            window.addEventListener("resize", checkScreenSize);
-            checkScreenSize();
+            // Initialize
+            initTheme();
         </script>
     </body>
 </html>
