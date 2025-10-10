@@ -16,7 +16,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/forgot-assword", forgotPasswordRouter);
+app.use("/forgot-password", forgotPasswordRouter);
 app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
 

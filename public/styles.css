@@ -72,3 +72,13 @@ body {
     justify-content: center;
     padding: var(--spacing-md);
 }
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}
