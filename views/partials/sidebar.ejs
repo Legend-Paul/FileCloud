@@ -86,5 +86,16 @@
                 </button>
             </div>
         </nav>
+        <script>
+            const navItems = document.querySelectorAll(".nav-item");
+
+            navItems.forEach((navItem) => {
+                navItem.addEventListener("click", (e) => {
+                    const element = document.querySelector(".active");
+                    if (element) element.classList.remove("active");
+                    navItem.classList.add("active");
+                });
+            });
+        </script>
     </body>
 </html>
