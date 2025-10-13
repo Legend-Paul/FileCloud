@@ -276,6 +276,8 @@
 
             // File selection
             function toggleSelection(element) {
+                const prevElement = document.querySelector(".selected");
+                if (prevElement) prevElement.classList.remove("selected");
                 element.classList.toggle("selected");
             }
 

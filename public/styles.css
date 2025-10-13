@@ -3,14 +3,19 @@
     --primary-color: #3b82f6;
     --secondary-color: #64748b;
     --accent-color: #f59e0b;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-muted: #f1f5f9;
 
     /* Colors - Neutral */
     --text-primary: #1f2937;
     --text-secondary: #6b7280;
     --text-muted: #9ca3af;
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8fafc;
-    --bg-muted: #f1f5f9;
+
+    /* Light mode text colors */
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
 
     /* Colors - Semantic */
     --success-color: #10b981;
@@ -53,7 +58,17 @@
     --transition-normal: 300ms ease;
     --transition-slow: 500ms ease;
 }
+[data-theme="dark"] {
+    /* Dark mode backgrounds */
+    --bg-primary: #111827;
+    --bg-secondary: #1f2937;
+    --bg-muted: #374151;
 
+    /* Dark mode text colors */
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --text-muted: #9ca3af;
+}
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -63,13 +78,13 @@
 
 body {
     font-family: var(--font-family);
-    background-color: var(--bg-secondary);
-    color: var(--text-primary);
-    line-height: 1.6;
+    background: var(--bg-primary);
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: var(--space-5);
+    color: var(--text-primary);
 }
 
 a {
