@@ -1,5 +1,6 @@
 /* Auth Container */
 .auth-container {
+    margin: var(--spacing-xl) 0;
     background: var(--bg-primary);
     padding: var(--spacing-xl);
     border-radius: var(--border-radius-lg);
@@ -111,14 +112,23 @@
 }
 
 /* Error State */
-.form-input.error {
-    border-color: var(--error-color);
+.error {
+    background-color: rgba(220, 38, 38, 0.1);
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    margin-bottom: var(--space-4);
+    border-left: 4px solid var(--error);
+    place-items: center;
+    max-width: 15rem;
+    margin: 0 auto var(--spacing-lg) auto;
 }
 
 .error-message {
-    color: var(--error-color);
+    color: var(--error);
+    font-size: var(--text-sm);
+    margin: 0;
     font-size: var(--font-size-xs);
-    margin-top: var(--spacing-xs);
+    /* margin-top: var(--spacing-xs); */
 }
 
 /* Dark Mode Support */

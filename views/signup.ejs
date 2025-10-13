@@ -13,7 +13,11 @@
                 <h1 class="auth-title">Create Account</h1>
                 <p class="auth-subtitle">Join us today and get started</p>
             </div>
-
+            <% if(locals.error){ %>
+            <div class="error">
+                <p class="error-message"><%=locals.error%></p>
+            </div>
+            <% } %>
             <form class="auth-form" method="post" action="/signup">
                 <div class="form-row">
                     <div class="form-group">
@@ -21,6 +25,7 @@
                         <input
                             type="text"
                             id="firstName"
+                            name="firstName"
                             class="form-input"
                             placeholder="Paul"
                             required
@@ -31,6 +36,7 @@
                         <input
                             type="text"
                             id="lastName"
+                            name="lastName"
                             class="form-input"
                             placeholder="Maina"
                             required
@@ -43,6 +49,7 @@
                     <input
                         type="text"
                         id="username"
+                        name="username"
                         class="form-input"
                         placeholder="Choose a username"
                         required
@@ -54,6 +61,7 @@
                     <input
                         type="password"
                         id="password"
+                        name="password"
                         class="form-input"
                         placeholder="********"
                         required
@@ -65,6 +73,7 @@
                     <input
                         type="password"
                         id="confirmPassword"
+                        name="confirmPassword"
                         class="form-input"
                         placeholder="********"
                         required

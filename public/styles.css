@@ -18,15 +18,18 @@
     --text-muted: #9ca3af;
 
     /* Colors - Semantic */
-    --success-color: #10b981;
-    --warning-color: #f59e0b;
-    --error-color: #ef4444;
-    --info-color: #3b82f6;
-
+    --success: #10b981;
+    --warning: #f59e0b;
+    --error: #ef4444;
+    --info: #3b82f6
     /* Border & Shadows */
     --border-color: #e5e7eb;
-    --border-radius: 0.375rem;
-    --border-radius-lg: 0.5rem;
+    /* Spacing */
+    --border-radius-sm: 0.25rem;
+    --border-radius: 0.5rem;
+    --border-radius-md: 0.75rem;
+    --border-radius-lg: 1rem;
+    --border-radius-xlg: 1.25rem;
 
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
