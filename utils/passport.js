@@ -14,8 +14,6 @@ const localVerifyCallback = async (username, password, done) => {
         const user = await prisma.user.findUnique({
             where: { username },
         });
-        console.log(username);
-
         if (!user) {
             return done(null, false, {
                 message: "Username or password is incorrect",
@@ -24,7 +22,6 @@ const localVerifyCallback = async (username, password, done) => {
 
         // Compare hashed passwords
         const valid = await bcryptjs.compare(password, user.password);
-        console.log(valid);
         if (!valid) {
             return done(null, false, {
                 message: "Username or password is incorrect",
