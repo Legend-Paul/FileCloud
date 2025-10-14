@@ -37,13 +37,22 @@ const signupPost = [
     async (req, res) => {
         try {
             const errors = validationResult(req);
-            console.log(errors.isEmpty());
-            if (!errors.isEmpty()) {
-                console.log(errors.array());
+
+            if (!errors.isEmpty())
                 return res.render("signup", { error: errors.array()[0].msg });
-            }
 
             const { firstName, lastName, username, password } = req.body;
+            const usernameExist = await prisma.user.findUnique({
+                where: {
+                    username,
+                },
+            });
+
+            if (usernameExist)
+                return res.render("signup", {
+                    error: "Username already exist",
+                });
+
             const hashedPassword = await bcryptjs.hash(password, 10);
             await prisma.user.create({
                 data: {
