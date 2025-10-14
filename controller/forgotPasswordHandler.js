@@ -29,16 +29,29 @@ const forgotPasswordPost = [
                 });
 
             const { username, password } = req.body;
-            const hashedPassword = bcryptjs.hash(password, 10);
             const user = await prisma.user.findUnique({
                 where: {
                     username,
                 },
             });
+
+            // user doesn't exist
+            const hashedPassword = await bcryptjs.hash(password, 10);
             if (!user)
-                res.render("forgotPassword", {
+                return res.render("forgotPassword", {
                     error: "Username doesn't exist",
                 });
+
+            // update user
+            await prisma.user.update({
+                where: {
+                    username,
+                },
+                data: {
+                    password: hashedPassword,
+                },
+            });
+            res.redirect("/login");
         } catch (err) {
             throw err;
         }
