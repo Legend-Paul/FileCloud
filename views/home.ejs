@@ -20,17 +20,26 @@
                 <!-- Content Area -->
                 <div class="content">
                     <div class="files-grid">
-                        <div class="file-card" onclick="toggleSelection(this)">
-                            <h3>Document.pdf</h3>
-                            <p>2.4 MB</p>
+                        <div class="downloads category file-card">
+                            <h3>Document</h3>
+                            <div class="file-card-summary">
+                                <p>2.4 MB</p>
+                                <p class="file-amount">4 files</p>
+                            </div>
                         </div>
-                        <div class="file-card" onclick="toggleSelection(this)">
-                            <h3>Image.jpg</h3>
-                            <p>1.8 MB</p>
+                        <div class="images category file-card">
+                            <h3>Image</h3>
+                            <div class="file-card-summary">
+                                <p>1.4 MB</p>
+                                <p class="file-amount">10 files</p>
+                            </div>
                         </div>
-                        <div class="file-card" onclick="toggleSelection(this)">
-                            <h3>Video.mp4</h3>
-                            <p>15.2 MB</p>
+                        <div class="videos category file-card">
+                            <h3>Video</h3>
+                            <div class="file-card-summary">
+                                <p>215.4 MB</p>
+                                <p class="file-amount">5 files</p>
+                            </div>
                         </div>
                     </div>
                     <div class="content-header">
@@ -286,11 +295,26 @@
             });
 
             // File selection
-            function toggleSelection(element) {
-                const prevElement = document.querySelector(".selected");
-                if (prevElement) prevElement.classList.remove("selected");
-                element.classList.toggle("selected");
-            }
+            const categories = document.querySelectorAll(".category");
+            categories.forEach((category) => {
+                category.addEventListener("click", function (e) {
+                    const className = this.classList[0];
+                    const elements = document.querySelectorAll(`.${className}`);
+                    const activeElements = document.querySelectorAll(".active");
+
+                    // remove active class
+                    if (activeElements) {
+                        activeElements.forEach((element) => {
+                            element.classList.remove("active");
+                        });
+                    }
+
+                    // add active class
+                    elements.forEach((element) => {
+                        element.classList.add("active");
+                    });
+                });
+            });
 
             // Initialize theme
             function initTheme() {

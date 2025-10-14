@@ -155,27 +155,6 @@
     font-size: var(--font-size-base);
 }
 
-/* File cards grid */
-.files-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: var(--spacing-md);
-}
-
-.file-card {
-    background: var(--bg-primary);
-    padding: var(--spacing-lg);
-    border-radius: var(--border-radius-lg);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-    transition: all var(--transition-fast);
-}
-
-.file-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-}
-
 /* Dark mode specific adjustments */
 [data-theme="dark"] .sidebar {
     background-color: var(--bg-primary);

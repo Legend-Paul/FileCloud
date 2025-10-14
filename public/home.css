@@ -39,13 +39,24 @@
     transition: all var(--transition-fast);
     cursor: pointer;
 }
+.file-card-summary {
+    margin-top: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
 
+.file-amount {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+}
 .file-card:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
+    border-color: var(--text-muted);
 }
 
-.file-card.selected {
+.file-card.active {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 2px var(--primary-color);
 }

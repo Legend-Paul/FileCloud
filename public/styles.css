@@ -7,11 +7,6 @@
     --bg-secondary: #f8fafc;
     --bg-muted: #f1f5f9;
 
-    /* Colors - Neutral */
-    --text-primary: #1f2937;
-    --text-secondary: #6b7280;
-    --text-muted: #9ca3af;
-
     /* Light mode text colors */
     --text-primary: #1f2937;
     --text-secondary: #6b7280;
@@ -21,9 +16,9 @@
     --success: #10b981;
     --warning: #f59e0b;
     --error: #ef4444;
-    --info: #3b82f6
+    --info: #3b82f6;
     /* Border & Shadows */
-    --border-color: #e5e7eb;
+    --border-color: #374151;
     /* Spacing */
     --border-radius-sm: 0.25rem;
     --border-radius: 0.5rem;
