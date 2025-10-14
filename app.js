@@ -9,7 +9,7 @@ const forgotPasswordRouter = require("./routes/forgotPassword");
 const errorHandler = require("./controller/errorHandler");
 const prisma = require("./utils/prisma");
 const passport = require("passport");
-
+const flash = require("connect-flash");
 require("dotenv").config();
 require("./utils/passport");
 
@@ -41,6 +41,7 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 app.use("/forgot-password", forgotPasswordRouter);
 app.use("/login", loginRouter);
