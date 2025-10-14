@@ -9,7 +9,9 @@ const forgotPasswordRouter = require("./routes/forgotPassword");
 const errorHandler = require("./controller/errorHandler");
 const prisma = require("./utils/prisma");
 const passport = require("passport");
+
 require("dotenv").config();
+require("./utils/passport");
 
 const PORT = process.env.PORT || 8000;
 
@@ -28,6 +30,7 @@ app.use(
             dbRecordIdIsSessionId: true,
             dbRecordIdFunction: undefined,
         }),
+        secret: process.env.COOKIE_SECRET,
         resave: true,
         saveUninitialized: false,
         cookie: {
