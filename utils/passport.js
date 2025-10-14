@@ -5,7 +5,7 @@ const bcryptjs = require("bcryptjs");
 
 const customFields = {
     usernameField: "username",
-    passwordField: "password", // ✅ fixed typo
+    passwordField: "password",
 };
 
 const localVerifyCallback = async (username, password, done) => {
@@ -14,6 +14,7 @@ const localVerifyCallback = async (username, password, done) => {
         const user = await prisma.user.findUnique({
             where: { username },
         });
+        console.log(username);
 
         if (!user) {
             return done(null, false, {
@@ -23,7 +24,7 @@ const localVerifyCallback = async (username, password, done) => {
 
         // Compare hashed passwords
         const valid = await bcryptjs.compare(password, user.password);
-
+        console.log(valid);
         if (!valid) {
             return done(null, false, {
                 message: "Username or password is incorrect",
@@ -46,7 +47,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
     try {
-        const user = await prisma.findUnique({
+        const user = await prisma.user.findUnique({
             where: { id },
         });
         done(null, user);

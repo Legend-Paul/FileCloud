@@ -124,7 +124,7 @@
 }
 
 .sign-out-btn:hover {
-    background-color: var(--error-color);
+    background-color: var(--error);
     color: white;
 }
 
