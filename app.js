@@ -4,7 +4,7 @@ const homeRouter = require("./routes/home");
 const signupRouter = require("./routes/signup");
 const loginRouter = require("./routes/login");
 const forgotPasswordRouter = require("./routes/forgotPassword");
-
+const errorHandler = require("./controller/errorHandler");
 require("dotenv").config();
 
 const PORT = process.env.PORT || 8000;
@@ -21,6 +21,7 @@ app.use("/forgot-password", forgotPasswordRouter);
 app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
 app.use("/", homeRouter);
+app.use(errorHandler);
 
 app.listen(PORT, (err) => {
     if (err) throw err;
