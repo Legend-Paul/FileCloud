@@ -60,8 +60,18 @@ const signupPost = [
                     lastName,
                     username,
                     password: hashedPassword,
+                    folders: {
+                        createMany: {
+                            data: [
+                                { name: "Documents", type: "DOCUMENT" },
+                                { name: "Images", type: "IMAGE" },
+                                { name: "Videos", type: "VIDEO" },
+                            ],
+                        },
+                    },
                 },
             });
+
             res.redirect("/login");
         } catch (err) {
             throw err;
