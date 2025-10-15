@@ -9,7 +9,7 @@ require("dotenv").config();
 require("./utils/passport");
 
 const homeRouter = require("./routes/home");
-const downloadsRouter = require("./routes/downloads");
+const documentsRouter = require("./routes/documents");
 const signupRouter = require("./routes/signup");
 const loginRouter = require("./routes/login");
 const logoutRouter = require("./routes/logout");
@@ -55,7 +55,7 @@ app.use("/forgot-password", forgotPasswordRouter);
 app.use("/login", loginRouter);
 app.use("/logout", logoutRouter);
 app.use("/signup", signupRouter);
-app.use("/Downloads", downloadsRouter);
+app.use("/documents", documentsRouter);
 app.use("/", homeRouter);
 
 // Error handler
