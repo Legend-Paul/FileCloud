@@ -19,32 +19,39 @@
 
                 <!-- Content Area -->
                 <div class="content">
+                    <% if (!locals.notHome) {%>
                     <div class="files-grid">
-                        <div class="downloads category file-card">
-                            <h3>Document</h3>
+                        <a
+                            href="/Downloads"
+                            class="downloads category file-card"
+                        >
+                            <h3>Documents</h3>
                             <div class="file-card-summary">
                                 <p>2.4 MB</p>
                                 <p class="file-amount">4 files</p>
                             </div>
-                        </div>
-                        <div class="images category file-card">
-                            <h3>Image</h3>
+                        </a>
+                        <a href="/Images" class="images category file-card">
+                            <h3>Images</h3>
                             <div class="file-card-summary">
                                 <p>1.4 MB</p>
                                 <p class="file-amount">10 files</p>
                             </div>
-                        </div>
-                        <div class="videos category file-card">
-                            <h3>Video</h3>
+                        </a>
+                        <a href="/Videos" class="videos category file-card">
+                            <h3>Videos</h3>
                             <div class="file-card-summary">
                                 <p>215.4 MB</p>
                                 <p class="file-amount">5 files</p>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="content-header">
                         <h2>Recent Files</h2>
                     </div>
+                    <%} else {%>
+                    <h2>Documents</h2>
+                    <% } %>
                 </div>
             </main>
         </div>
