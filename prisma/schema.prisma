@@ -9,6 +9,15 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String   
+  expiresAt DateTime
+
+  @@map("session")
+}
+
 model User {
   id        String   @id @default(uuid())
   firstName String
@@ -17,13 +26,49 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  folders   Folder[]
+  files     File[]
 }
 
-model Session {
-  id        String   @id
-  sid       String   @unique
-  data      String   // stores session data as JSON string
-  expiresAt DateTime
+model Folder {
+  id          String     @id @default(uuid())
+  name        String
+  parent      Folder?    @relation("FolderHierarchy", fields: [parentId], references: [id], onDelete: Cascade)
+  parentId    String?
+  subfolders  Folder[]   @relation("FolderHierarchy")
+  files       File[]
+  type        FolderType?  // Optional - only for root folders
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  owner       User       @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId     String
 
-  @@map("session")
+  @@unique([parentId, name, ownerId]) // Prevent duplicates per user
+  @@index([parentId])
+  @@index([ownerId])
+  @@index([type])
+}
+
+enum FolderType {
+  DOCUMENT
+  IMAGE
+  VIDEO
+}
+
+model File {
+  id        String   @id @default(uuid())
+  name      String
+  size      Int
+  mimeType  String
+  url       String
+  folder    Folder   @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  folderId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId   String
+
+  @@unique([folderId, name]) // Prevent duplicate file names in same folder
+  @@index([folderId])
+  @@index([ownerId])
 }
