@@ -60,6 +60,7 @@
                     <button
                         class="btn btn-secondary"
                         onclick="closeModal('uploadModal')"
+                        type="button"
                     >
                         Cancel
                     </button>
@@ -75,7 +76,10 @@
         </div>
 
         <!-- Create Folder Modal -->
-        <div id="createFolderModal" class="modal">
+        <div
+            id="createFolderModal"
+            class="modal <%= locals.error? 'active' : '' %>"
+        >
             <form
                 action="<%= locals.path %>/new/folder"
                 method="post"
@@ -84,6 +88,11 @@
                 <div class="modal-header">
                     <h3>Create New Folder</h3>
                 </div>
+                <% if(locals.error){ %>
+                <div class="error">
+                    <p class="error-message"><%=locals.error%></p>
+                </div>
+                <% } %>
                 <div class="form-group">
                     <label for="folderName">Folder Name</label>
                     <input
@@ -98,6 +107,7 @@
                     <button
                         class="btn btn-secondary"
                         onclick="closeModal('createFolderModal')"
+                        type="button"
                     >
                         Cancel
                     </button>
@@ -143,6 +153,7 @@
                     <button
                         class="btn btn-secondary"
                         onclick="closeModal('shareModal')"
+                        type="button"
                     >
                         Cancel
                     </button>
@@ -181,6 +192,7 @@
                     <button
                         class="btn btn-secondary"
                         onclick="closeModal('renameModal')"
+                        type="button"
                     >
                         Cancel
                     </button>
@@ -213,6 +225,7 @@
                     <button
                         class="btn btn-secondary"
                         onclick="closeModal('deleteModal')"
+                        type="button"
                     >
                         Cancel
                     </button>
@@ -260,18 +273,13 @@
                 const fileInput = document.getElementById("fileInput");
                 if (fileInput.files.length > 0) {
                     closeModal("uploadModal");
-                } else {
-                    alert("Please select files to upload");
                 }
             }
 
             function createFolder() {
                 const folderName = document.getElementById("folderName").value;
                 if (folderName) {
-                    alert(`Creating folder: ${folderName}`);
                     closeModal("createFolderModal");
-                } else {
-                    alert("Please enter a folder name");
                 }
             }
 
@@ -280,28 +288,18 @@
                 const permission =
                     document.getElementById("sharePermission").value;
                 if (email) {
-                    alert(
-                        `Sharing file with ${email} (${permission} permission)`
-                    );
                     closeModal("shareModal");
-                } else {
-                    alert("Please enter an email address");
                 }
             }
 
             function renameFile() {
                 const newName = document.getElementById("newFileName").value;
                 if (newName) {
-                    alert(`Renaming file to: ${newName}`);
                     closeModal("renameModal");
-                } else {
-                    alert("Please enter a new file name");
                 }
             }
 
-            function downloadFile() {
-                alert("Downloading selected file(s)...");
-            }
+            function downloadFile() {}
 
             function deleteFile() {
                 if (
@@ -309,7 +307,6 @@
                         "Are you sure you want to delete the selected file(s)?"
                     )
                 ) {
-                    alert("Deleting file(s)...");
                     closeModal("deleteModal");
                 }
             }

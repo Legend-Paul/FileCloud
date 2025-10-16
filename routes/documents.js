@@ -17,9 +17,10 @@ const upload = multer({ storage: storage });
 const documentsRouter = express.Router();
 documentsRouter.get("/", documentsHandler.documentsGet);
 documentsRouter.post(
-    "/new/file",
+    "/*new/file",
     upload.array("file", 12),
     documentsHandler.documentsNewFile
 );
+documentsRouter.post("/*new/folder", documentsHandler.documentsNewFolder);
 
 module.exports = documentsRouter;

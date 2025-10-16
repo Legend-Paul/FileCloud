@@ -11,6 +11,9 @@ h2,
     display: flex;
     justify-content: space-between;
     padding: var(--spacing-sm);
+    .name {
+        font-weight: 300;
+    }
     .file-summary {
         display: flex;
         gap: var(--spacing-md);
