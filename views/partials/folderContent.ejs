@@ -1,3 +1,10 @@
 <div class="folder-container">
     <h2>Documents</h2>
+    <% files.forEach(file=>{ %>
+    <div class="file">
+        <p class="name"><%= file.name %></p>
+        <p class="type"><%= file.type %></p>
+        <p class="size"><%= file.size %></p>
+    </div>
+    <% }); %>
 </div>
