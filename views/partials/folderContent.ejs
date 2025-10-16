@@ -1,10 +1,35 @@
-<div class="folder-container">
-    <h2>Documents</h2>
-    <% files.forEach(file=>{ %>
-    <div class="file">
-        <p class="name"><%= file.name %></p>
-        <p class="type"><%= file.type %></p>
-        <p class="size"><%= file.size %></p>
-    </div>
-    <% }); %>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="folderContent.css" />
+    </head>
+    <body>
+        <div class="folder-container">
+            <h2>Documents</h2>
+            <div class="files-container">
+                <div class="files-label">
+                    <p class="name">Name</p>
+                    <div class="file-summary">
+                        <p class="type">Type</p>
+                        <p class="size">Size</p>
+                    </div>
+                </div>
+
+                <div class="files">
+                    <% files.forEach(file=>{ %>
+                    <div class="file">
+                        <p class="name"><%= file.name %></p>
+                        <div class="file-summary">
+                            <p class="type"><%= file.mimeType %></p>
+                            <p class="size"><%= file.size %></p>
+                        </div>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

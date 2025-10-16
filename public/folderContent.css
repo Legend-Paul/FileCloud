@@ -1,0 +1,23 @@
+h2,
+.files-label {
+    margin-bottom: var(--spacing-md);
+}
+.files {
+    display: grid;
+    gap: var(--spacing-md);
+}
+.file,
+.files-label {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-sm);
+    .file-summary {
+        display: flex;
+        gap: var(--spacing-md);
+        color: var(--text-muted);
+    }
+}
+.file {
+    background-color: var(--bg-muted);
+    cursor: pointer;
+}

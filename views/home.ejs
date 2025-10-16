@@ -325,26 +325,37 @@
             });
 
             // File selection
-            const categories = document.querySelectorAll(".category");
-            categories.forEach((category) => {
-                category.addEventListener("click", function (e) {
-                    const className = this.classList[0];
-                    const elements = document.querySelectorAll(`.${className}`);
-                    const activeElements = document.querySelectorAll(".active");
+            const removeActiveClass = () => {
+                const activeElements = document.querySelectorAll(".active");
 
-                    // remove active class
-                    if (activeElements) {
-                        activeElements.forEach((element) => {
-                            element.classList.remove("active");
-                        });
-                    }
-
-                    // add active class
-                    elements.forEach((element) => {
-                        element.classList.add("active");
+                // remove active class
+                if (activeElements) {
+                    activeElements.forEach((element) => {
+                        element.classList.remove("active");
                     });
-                });
-            });
+                }
+            };
+            const path = window.location.pathname;
+
+            if (path.includes("/Documents")) {
+                removeActiveClass();
+                document
+                    .querySelectorAll(".documents")
+                    .forEach((element) => element.classList.add("active"));
+            }
+            if (path.includes("/Images")) {
+                removeActiveClass();
+                document
+                    .querySelectorAll(".images")
+                    .forEach((element) => element.classList.add("active"));
+            }
+            if (path.includes("/Videos")) {
+                removeActiveClass();
+                document
+                    .querySelectorAll(".videos")
+                    .classList.add("active")
+                    .forEach((element) => element.classList.add("active"));
+            }
 
             // Initialize theme
             function initTheme() {
