@@ -67,14 +67,11 @@ async function getFolders(req, res, type) {
 
     const folders = await prisma.folder.findMany({
         where: {
-            name,
             type,
-            parent: !parentName
-                ? null
-                : {
-                      name: parentName,
-                      type,
-                  },
+            parent: {
+                name,
+                type,
+            },
             owner: req.user,
         },
     });

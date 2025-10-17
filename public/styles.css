@@ -123,3 +123,10 @@ label {
 .form-input::placeholder {
     color: var(--text-muted);
 }
+
+svg {
+    width: 20px;
+    height: 20px;
+    /* color: var(--text-muted); */
+    transition: color var(--transition-fast);
+}

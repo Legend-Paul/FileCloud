@@ -85,10 +85,7 @@
 }
 
 .nav-icon {
-    width: 20px;
-    height: 20px;
     color: var(--text-muted);
-    transition: color var(--transition-fast);
 }
 
 .nav-item:hover .nav-icon {

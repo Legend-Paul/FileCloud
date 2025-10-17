@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>FileCloud - Dashboard</title>
         <link rel="icon" href="/logo/logo.png" type="image/png" />
-        <link rel="stylesheet" href="styles.css" />
-        <link rel="stylesheet" href="home.css" />
+        <link rel="stylesheet" href="/styles.css" />
+        <link rel="stylesheet" href="/home.css" />
     </head>
     <body>
         <div class="app-container">
@@ -22,7 +22,8 @@
                     <% if (locals.path) {%>
                     <!--folder content -->
                     <%- include("partials/folderContent.ejs", {files:
-                    locals.files}) %> <%} else {%>
+                    locals.files, folders: locals.folders, path: locals.path})
+                    %> <%} else {%>
                     <!-- Files grid -->
                     <%- include("partials/filesGrid.ejs") %> <% } %>
                 </div>
