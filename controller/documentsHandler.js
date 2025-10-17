@@ -6,13 +6,16 @@ const documentsGet = async (req, res) => {
     try {
         const path = req.originalUrl;
         const name = path.split("/").at(-1);
+        const pathArray = path.split("/");
+        console.log(pathArray);
+        console.log(pathArray.slice(2).join("/"));
 
         const [folders, files] = await Promise.all([
             getFolders(req, res, "DOCUMENT"),
             getFiles(req, res, "DOCUMENT"),
         ]);
 
-        res.render("home", { path, fileType: name, folders, files });
+        res.render("home", { path, fileType: name, folders, files, pathArray });
     } catch (err) {
         throw err;
     }

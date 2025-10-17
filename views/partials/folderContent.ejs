@@ -8,6 +8,14 @@
     </head>
     <body>
         <div class="folder-container">
+            <div class="folder-nav">
+                <% pathArray.forEach((path, i)=>{ %> <% if(path){ %>
+                <a href="<%= pathArray.slice(0, i+1).join('/') %>">
+                    <%= path %> >
+                </a>
+                <% } %> <% })%>
+            </div>
+
             <div class="folders-container">
                 <% folders.forEach(folder=>{ %>
                 <a href="<%=path%>/<%=folder.name %>" class="folder">
@@ -36,7 +44,7 @@
                 <% } %>
 
                 <div class="files">
-                    <% files.forEach(file=>{ %>
+                    <% files.forEach(file=> { %>
                     <div class="file">
                         <div class="file-name">
                             <svg
@@ -58,10 +66,10 @@
                             <p class="size"><%= file.size %></p>
                         </div>
                     </div>
-                    <% }); %>
+                    <% }) %>
                 </div>
             </div>
-            <% }; %>
+            <% } %>
         </div>
     </body>
 </html>

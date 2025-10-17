@@ -22,8 +22,8 @@
                     <% if (locals.path) {%>
                     <!--folder content -->
                     <%- include("partials/folderContent.ejs", {files:
-                    locals.files, folders: locals.folders, path: locals.path})
-                    %> <%} else {%>
+                    locals.files, folders: locals.folders, path: locals.path,
+                    pathArray: locals.pathArray}) %> <%} else {%>
                     <!-- Files grid -->
                     <%- include("partials/filesGrid.ejs") %> <% } %>
                 </div>
