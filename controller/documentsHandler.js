@@ -1,10 +1,18 @@
-const files = require("../utils/files");
+const { addNewFile, getFiles } = require("../utils/files");
 const prisma = require("../utils/prisma");
-const createNewFolder = require("../utils/createNewFolder");
+const { createNewFolder, getFolders } = require("../utils/folders");
 
 const documentsGet = async (req, res) => {
     try {
-        await files.getFiles(req, res, "DOCUMENT");
+        const path = req.originalUrl;
+        const name = path.split("/").at(-1);
+
+        const [folders, files] = await Promise.all([
+            getFolders(req, res, "DOCUMENT"),
+            getFiles(req, res, "DOCUMENT"),
+        ]);
+
+        res.render("home", { path, fileType: name, folders, files });
     } catch (err) {
         throw err;
     }
@@ -12,7 +20,7 @@ const documentsGet = async (req, res) => {
 
 const documentsNewFile = async (req, res) => {
     try {
-        await files.addNewFile(req, res, "DOCUMENT");
+        await addNewFile(req, res, "DOCUMENT");
     } catch (err) {
         throw err;
     }

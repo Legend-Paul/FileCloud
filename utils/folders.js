@@ -2,9 +2,7 @@ const prisma = require("../utils/prisma");
 
 async function createNewFolder(req, res, type) {
     let { folderName } = req.body;
-
     const path = req.originalUrl;
-    const originalPath = path.split("/");
     const name = path.split("/").at(-3);
     const parentName = path.split("/").at(-4) || null;
     const folderPath = path.split("/").slice(0, -2).join("/");
@@ -62,4 +60,25 @@ async function createNewFolder(req, res, type) {
     return res.redirect(folderPath);
 }
 
-module.exports = createNewFolder;
+async function getFolders(req, res, type) {
+    const path = req.originalUrl;
+    const name = path.split("/").at(-1);
+    const parentName = path.split("/").at(-2) || null;
+
+    const folders = await prisma.folder.findMany({
+        where: {
+            name,
+            type,
+            parent: !parentName
+                ? null
+                : {
+                      name: parentName,
+                      type,
+                  },
+            owner: req.user,
+        },
+    });
+    return folders;
+}
+
+module.exports = { createNewFolder, getFolders };

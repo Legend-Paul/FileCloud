@@ -44,32 +44,23 @@ const getFiles = async (req, res, type) => {
     const path = req.originalUrl;
     const name = path.split("/").at(-1);
     const parentName = path.split("/").at(-2) || null;
-    let files = null;
-    if (!parentName)
-        files = await prisma.file.findMany({
-            where: {
-                folder: {
-                    name,
-                    type,
-                    owner: req.user,
-                },
+
+    const files = await prisma.file.findMany({
+        where: {
+            folder: {
+                name,
+                type,
+                parent: !parentName
+                    ? null
+                    : {
+                          name: parentName,
+                          type,
+                      },
             },
-        });
-    else
-        files = await prisma.file.findMany({
-            where: {
-                folder: {
-                    name,
-                    type,
-                    parent: {
-                        name: parentName,
-                        type,
-                    },
-                },
-                owner: req.user,
-            },
-        });
-    return res.render("home", { path, fileType: name, files });
+            owner: req.user,
+        },
+    });
+    return files;
 };
 
 module.exports = { addNewFile, getFiles };
