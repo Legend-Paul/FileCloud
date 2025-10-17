@@ -4,6 +4,7 @@ async function addNewFile(req, res, type) {
     const { fileType } = req.body;
     const { id } = req.user;
     const uploadedFiles = req.files;
+    const folderPath = req.originalUrl.split("/").slice(0, -2).join("/");
 
     const folder = await prisma.folder.findFirst({
         where: {
@@ -11,13 +12,21 @@ async function addNewFile(req, res, type) {
             type,
             owner: req.user,
         },
+        include: {
+            files: true,
+        },
     });
 
     const files = uploadedFiles.map((file) => {
         const mimeType = file.mimetype.split("/").at(-1);
+        const nameExist = folder.files.find(
+            (f) => f.name === file.originalname
+        );
 
         return {
-            name: file.originalname + "-" + Date.now(),
+            name: nameExist
+                ? file.originalname + "-" + Date.now()
+                : file.originalname,
             mimeType,
             url: file.path,
             size: file.size,
@@ -28,7 +37,7 @@ async function addNewFile(req, res, type) {
     await prisma.file.createMany({
         data: files,
     });
-    res.redirect(req.originalUrl);
+    res.redirect(folderPath);
 }
 
 const getFiles = async (req, res, type) => {
@@ -42,8 +51,8 @@ const getFiles = async (req, res, type) => {
                 folder: {
                     name,
                     type,
+                    owner: req.user,
                 },
-                owner: req.user,
             },
         });
     else

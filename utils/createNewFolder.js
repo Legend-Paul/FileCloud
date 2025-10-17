@@ -1,14 +1,13 @@
 const prisma = require("../utils/prisma");
 
 async function createNewFolder(req, res, type) {
-    const { folderName } = req.body;
+    let { folderName } = req.body;
 
     const path = req.originalUrl;
     const originalPath = path.split("/");
     const name = path.split("/").at(-3);
     const parentName = path.split("/").at(-4) || null;
-
-    console.log(folderName, name, parentName);
+    const folderPath = path.split("/").slice(0, -2).join("/");
 
     // Find the parent folder
     const parentFolder = await prisma.folder.findFirst({
@@ -42,16 +41,9 @@ async function createNewFolder(req, res, type) {
             owner: req.user,
         },
     });
-    let folderPath = path.split("/").slice(0, -2).join("/");
+
     if (folderExist) {
-        // const files = await getFolderFiles(req, name, parentName);
-        // return res.status(200).redirect(path, {
-        //     path: folderPath,
-        //     fileType: name,
-        //     files,
-        //     error: "Folder exists",
-        // });
-        return res.redirect(folderPath);
+        folderName = folderName + "-" + Date.now();
     }
 
     // Create the new folder and connect it to the parent
