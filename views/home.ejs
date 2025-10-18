@@ -172,12 +172,12 @@
         <!-- Rename Modal -->
         <div id="renameModal" class="modal">
             <form
-                action="<%= locals.path %>/rename/file"
+                action="<%= locals.path %>/rename"
                 method="post"
                 class="modal-content"
             >
                 <div class="modal-header">
-                    <h3>Rename File</h3>
+                    <h3>Rename</h3>
                 </div>
                 <div class="form-group">
                     <label for="newFileName">New Name</label>
@@ -185,10 +185,11 @@
                         type="text"
                         id="newFileName"
                         class="form-input"
-                        placeholder="Enter new file name"
+                        placeholder="Enter new name"
                         name="newFileName"
                     />
                 </div>
+                <input type="hidden" name="renameItem" id="rename-item" />
                 <div class="modal-actions">
                     <button
                         class="btn btn-secondary"
@@ -255,10 +256,6 @@
                 document.getElementById("shareModal").classList.add("active");
             }
 
-            function openRenameModal() {
-                document.getElementById("renameModal").classList.add("active");
-            }
-
             function closeModal(modalId) {
                 document.getElementById(modalId).classList.remove("active");
             }
@@ -284,13 +281,6 @@
                     document.getElementById("sharePermission").value;
                 if (email) {
                     closeModal("shareModal");
-                }
-            }
-
-            function renameFile() {
-                const newName = document.getElementById("newFileName").value;
-                if (newName) {
-                    closeModal("renameModal");
                 }
             }
 
@@ -340,19 +330,19 @@
             }
 
             // delete actions
-            const deleteItems = {};
+            const selectedItems = {};
             const folders = document.querySelectorAll(".folder");
             folders.forEach((folder) => {
                 folder.addEventListener("click", () => {
                     const id = folder.getAttribute("data-id");
-                    if (!deleteItems["folders"])
-                        deleteItems["folders"] = new Set();
-                    if (deleteItems["folders"].has(id)) {
-                        deleteItems["folders"].delete(id);
+                    if (!selectedItems["folders"])
+                        selectedItems["folders"] = new Set();
+                    if (selectedItems["folders"].has(id)) {
+                        selectedItems["folders"].delete(id);
                     } else {
-                        deleteItems["folders"].add(id);
+                        selectedItems["folders"].add(id);
                     }
-                    console.log(deleteItems);
+
                     folder.classList.toggle("active-folder");
                 });
             });
@@ -361,20 +351,21 @@
             files.forEach((file) => {
                 file.addEventListener("click", () => {
                     const id = file.getAttribute("data-id");
-                    if (!deleteItems["files"]) deleteItems["files"] = new Set();
-                    if (deleteItems["files"].has(id)) {
-                        deleteItems["files"].delete(id);
+                    if (!selectedItems["files"])
+                        selectedItems["files"] = new Set();
+                    if (selectedItems["files"].has(id)) {
+                        selectedItems["files"].delete(id);
                     } else {
-                        deleteItems["files"].add(id);
+                        selectedItems["files"].add(id);
                     }
-                    console.log(deleteItems);
+
                     file.classList.toggle("active-file");
                 });
             });
 
             function openDeleteModal() {
-                if (Object.keys(deleteItems).length === 0) return;
-                const itemsAmount = Object.values(deleteItems).reduce(
+                if (Object.keys(selectedItems).length === 0) return;
+                const itemsAmount = Object.values(selectedItems).reduce(
                     (acc, curr) => acc + curr.size,
                     0
                 );
@@ -386,12 +377,66 @@
             function deleteFile() {
                 const input = document.getElementById("delete-items");
                 const itemsToDelete = {
-                    folders: Array.from(deleteItems["folders"] || []),
-                    files: Array.from(deleteItems["files"] || []),
+                    folders: Array.from(selectedItems["folders"] || []),
+                    files: Array.from(selectedItems["files"] || []),
                 };
                 input.value = JSON.stringify(itemsToDelete);
 
                 closeModal("deleteModal");
+            }
+
+            // rename actions
+
+            function openRenameModal() {
+                const input = document.getElementById("rename-item");
+                if (!Object.keys(selectedItems).length > 0) return;
+                const canRename =
+                    Object.values(selectedItems).filter((set) => set.size === 1)
+                        .length === 1;
+                if (!canRename) return;
+
+                const selected = Object.keys(selectedItems).find(
+                    (key) => selectedItems[key].size === 1
+                );
+                const itemToRename = Array.from(selectedItems[selected])[0];
+                const element =
+                    selected === "files"
+                        ? document.querySelector(
+                              `.file[data-id="${itemToRename}"]`
+                          )
+                        : document.querySelector(
+                              `.folder[data-id="${itemToRename}"]`
+                          );
+                const previousName = element.querySelector(".name").textContent;
+                const modalInput = document.getElementById("newFileName");
+                modalInput.value = previousName;
+                document.getElementById("renameModal").classList.add("active");
+                if (modalInput) {
+                    setTimeout(() => {
+                        modalInput.focus();
+                        modalInput.select();
+                    }, 0);
+                }
+            }
+
+            function renameFile() {
+                const input = document.getElementById("rename-item");
+                const selected = Object.keys(selectedItems)[0];
+                const itemToRename = Array.from(selectedItems[selected])[0];
+                const fileType =
+                    selected === "files"
+                        ? document
+                              .querySelector(`.file[data-id="${itemToRename}"]`)
+                              .querySelector(".type").textContent
+                        : null;
+
+                input.value = JSON.stringify({
+                    type: selected,
+                    id: itemToRename,
+                    fileType,
+                });
+
+                closeModal("renameModal");
             }
 
             // Initialize theme
