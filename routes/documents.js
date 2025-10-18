@@ -22,5 +22,6 @@ documentsRouter.post(
     documentsHandler.documentsNewFile
 );
 documentsRouter.post("/*new/folder", documentsHandler.documentsNewFolder);
+documentsRouter.post("/*delete", documentsHandler.documentsDelete);
 documentsRouter.get("/{*splat}", documentsHandler.documentsGet);
 module.exports = documentsRouter;

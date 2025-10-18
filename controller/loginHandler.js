@@ -1,5 +1,6 @@
 const loginGet = (req, res) => {
-    res.render("login", { error: req.flash("error")[0] });
+    const [error] = req.flash("error");
+    res.render("login", { error });
 };
 
 module.exports = { loginGet };

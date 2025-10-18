@@ -3,7 +3,6 @@ const loginHandler = require("../controller/loginHandler");
 const passport = require("passport");
 
 const loginRouter = express.Router();
-loginRouter.get("/", loginHandler.loginGet);
 loginRouter.post(
     "/",
     passport.authenticate("local", {
@@ -12,5 +11,6 @@ loginRouter.post(
         failureFlash: true,
     })
 );
+loginRouter.get("/", loginHandler.loginGet);
 
 module.exports = loginRouter;

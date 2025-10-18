@@ -211,17 +211,15 @@
         <!-- Delete Modal -->
         <div id="deleteModal" class="modal">
             <form
-                action="<%= locals.path %>"
+                action="<%= locals.path %>/delete"
                 method="post"
                 class="modal-content"
             >
                 <div class="modal-header">
-                    <h3>Delete File</h3>
+                    <h3>Delete</h3>
                 </div>
-                <p>
-                    Are you sure you want to delete the selected file(s)? This
-                    action cannot be undone.
-                </p>
+                <p class="delete-message"></p>
+                <input type="hidden" name="deleteItems" id="delete-items" />
                 <div class="modal-actions">
                     <button
                         class="btn btn-secondary"
@@ -261,10 +259,6 @@
                 document.getElementById("renameModal").classList.add("active");
             }
 
-            function openDeleteModal() {
-                document.getElementById("deleteModal").classList.add("active");
-            }
-
             function closeModal(modalId) {
                 document.getElementById(modalId).classList.remove("active");
             }
@@ -301,16 +295,6 @@
             }
 
             function downloadFile() {}
-
-            function deleteFile() {
-                if (
-                    confirm(
-                        "Are you sure you want to delete the selected file(s)?"
-                    )
-                ) {
-                    closeModal("deleteModal");
-                }
-            }
 
             // Close modal when clicking outside
             window.addEventListener("click", function (event) {
@@ -372,6 +356,7 @@
                     folder.classList.toggle("active-folder");
                 });
             });
+
             const files = document.querySelectorAll(".file");
             files.forEach((file) => {
                 file.addEventListener("click", () => {
@@ -386,6 +371,28 @@
                     file.classList.toggle("active-file");
                 });
             });
+
+            function openDeleteModal() {
+                if (Object.keys(deleteItems).length === 0) return;
+                const itemsAmount = Object.values(deleteItems).reduce(
+                    (acc, curr) => acc + curr.size,
+                    0
+                );
+                const deleteMessage = document.querySelector(".delete-message");
+                deleteMessage.textContent = `Are you sure you want to delete ${itemsAmount} item(s)? This action cannot be undone.`;
+                document.getElementById("deleteModal").classList.add("active");
+            }
+
+            function deleteFile() {
+                const input = document.getElementById("delete-items");
+                const itemsToDelete = {
+                    folders: Array.from(deleteItems["folders"] || []),
+                    files: Array.from(deleteItems["files"] || []),
+                };
+                input.value = JSON.stringify(itemsToDelete);
+
+                closeModal("deleteModal");
+            }
 
             // Initialize theme
             function initTheme() {

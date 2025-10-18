@@ -95,9 +95,6 @@ a {
     border-radius: var(--border-radius-sm);
 }
 
-.active {
-    background-color: var(--primary-color);
-}
 .folder-nav {
     a {
         color: var(--primary-color);

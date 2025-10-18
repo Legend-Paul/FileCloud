@@ -35,4 +35,40 @@ const documentsNewFolder = async (req, res) => {
     }
 };
 
-module.exports = { documentsGet, documentsNewFile, documentsNewFolder };
+const documentsDelete = async (req, res) => {
+    const { deleteItems } = req.body;
+
+    try {
+        const path = req.originalUrl;
+        const back = path.split("/").slice(0, -1).join("/");
+        console.log(back);
+
+        const items = JSON.parse(deleteItems);
+        const { folders, files } = items;
+
+        await Promise.all([
+            prisma.folder.deleteMany({
+                where: {
+                    id: { in: folders },
+                    owner: req.user,
+                },
+            }),
+            prisma.file.deleteMany({
+                where: {
+                    id: { in: files },
+                    owner: req.user,
+                },
+            }),
+        ]);
+        res.redirect(back);
+    } catch (err) {
+        throw err;
+    }
+};
+
+module.exports = {
+    documentsGet,
+    documentsNewFile,
+    documentsNewFolder,
+    documentsDelete,
+};
