@@ -18,7 +18,7 @@
 
             <div class="folders-container">
                 <% folders.forEach(folder=>{ %>
-                <div class="folder">
+                <div class="folder" data-id="<%= folder.id %>">
                     <div class="folder-name-cont">
                         <svg
                             fill="none"
@@ -73,7 +73,7 @@
 
                 <div class="files">
                     <% files.forEach(file=> { %>
-                    <div class="file">
+                    <div class="file" data-id="<%= file.id %>">
                         <div class="file-name">
                             <svg
                                 fill="none"

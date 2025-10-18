@@ -356,15 +356,33 @@
             }
 
             // delete actions
+            const deleteItems = {};
             const folders = document.querySelectorAll(".folder");
             folders.forEach((folder) => {
                 folder.addEventListener("click", () => {
+                    const id = folder.getAttribute("data-id");
+                    if (!deleteItems["folders"])
+                        deleteItems["folders"] = new Set();
+                    if (deleteItems["folders"].has(id)) {
+                        deleteItems["folders"].delete(id);
+                    } else {
+                        deleteItems["folders"].add(id);
+                    }
+                    console.log(deleteItems);
                     folder.classList.toggle("active-folder");
                 });
             });
             const files = document.querySelectorAll(".file");
             files.forEach((file) => {
                 file.addEventListener("click", () => {
+                    const id = file.getAttribute("data-id");
+                    if (!deleteItems["files"]) deleteItems["files"] = new Set();
+                    if (deleteItems["files"].has(id)) {
+                        deleteItems["files"].delete(id);
+                    } else {
+                        deleteItems["files"].add(id);
+                    }
+                    console.log(deleteItems);
                     file.classList.toggle("active-file");
                 });
             });
