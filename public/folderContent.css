@@ -11,11 +11,14 @@
     display: flex;
     justify-content: space-between;
     padding: var(--spacing-sm);
+    align-items: center;
     .name {
         font-weight: 300;
     }
     .file-summary {
         display: flex;
+        align-items: center;
+        justify-content: center;
         gap: var(--spacing-md);
         color: var(--text-muted);
     }
@@ -24,6 +27,12 @@
     background-color: var(--bg-muted);
     cursor: pointer;
     border-radius: var(--border-radius-sm);
+    .file-name {
+        display: flex;
+        gap: var(--spacing-md);
+        justify-content: center;
+        align-self: center;
+    }
     .name {
         font-weight: 200;
     }

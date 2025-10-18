@@ -4,17 +4,17 @@
     padding: var(--spacing-md) var(--spacing-xl);
     box-shadow: var(--shadow-sm);
 
-    position: absolute;
+    position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
+    left: 200px;
+    width: calc(100% - 200px);
 }
 
 .header-content {
     display: flex;
+    gap: var(--spacing-lg);
     justify-content: space-between;
     align-items: center;
-    gap: var(--spacing-lg);
     flex-wrap: wrap;
 }
 
