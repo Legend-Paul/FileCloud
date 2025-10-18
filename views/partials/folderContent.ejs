@@ -18,17 +18,45 @@
 
             <div class="folders-container">
                 <% folders.forEach(folder=>{ %>
-                <a href="<%=path%>/<%=folder.name %>" class="folder">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-                        />
-                    </svg>
-                    <p class="name"><%= folder.name %></p>
-                </a>
+                <div class="folder">
+                    <div class="folder-name-cont">
+                        <svg
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
+                            />
+                        </svg>
+                        <p class="name"><%= folder.name %></p>
+                    </div>
+                    <a
+                        href="<%=path%>/<%=folder.name %>"
+                        class="kebab-menu-contaier"
+                    >
+                        <svg
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"
+                            />
+                        </svg>
+                        <div class="kebab-menu-options">
+                            <a class="kebab-menu-link delete" href="">Delete</a>
+                            <a class="kebab-menu-link rename" href="">Rename</a>
+                            <a class="kebab-menu-link share" href="">Share</a>
+                        </div>
+                    </a>
+                </div>
                 <% }); %>
             </div>
             <% if(files) {%>
@@ -72,4 +100,33 @@
             <% } %>
         </div>
     </body>
+    <!-- <script>
+        const kebabMenus = document.querySelectorAll(".kebab-menu-contaier");
+        kebabMenus.forEach((memu) => {
+            memu.addEventListener("click", () => {
+                const active = document.querySelector(
+                    ".active-kebab-menu-contaier"
+                );
+                if (active)
+                    active.classList.remove("active-kebab-menu-contaier");
+                memu.classList.add("active-kebab-menu-contaier");
+                const currentActive = document.querySelector(
+                    ".active-kebab-menu-contaier"
+                );
+                currentActive.parentElement.classList.toggle("active-folder");
+            });
+            window.addEventListener("click", function (event) {
+                const modals = document.querySelectorAll(
+                    ".kebab-menu-contaier"
+                );
+                console.log("click");
+                modals.forEach((modal) => {
+                    if (event.target === modal) {
+                        console.log("click");
+                        modal.classList.remove("active-kebab-menu-contaier");
+                    }
+                });
+            });
+        });
+    </script> -->
 </html>

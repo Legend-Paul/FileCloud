@@ -23,10 +23,56 @@
 .file {
     background-color: var(--bg-muted);
     cursor: pointer;
+    border-radius: var(--border-radius-sm);
     .name {
         font-weight: 200;
     }
 }
+a {
+    color: var(--text-primary);
+}
+.kebab-menu-contaier {
+    position: relative;
+}
+
+.kebab-menu-options {
+    display: grid;
+    gap: var(--spacing-sm);
+    position: absolute;
+    top: var(--spacing-lg);
+    right: -var(--spacing-md);
+    display: none;
+    z-index: 10;
+}
+.active-kebab-menu-contaier {
+    .kebab-menu-options {
+        display: grid;
+    }
+}
+.kebab-menu-link {
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--border-radius-sm);
+}
+.delete {
+    background-color: var(--error);
+}
+.rename {
+    background-color: var(--info);
+}
+.share {
+    background-color: var(--success);
+}
+
+.active-folde,
+.active-file {
+    background-color: var(--primary-color);
+}
+
+/* folder */
+
 .folders-container {
     display: grid;
     gap: var(--spacing-md);
@@ -34,11 +80,26 @@
 .file-name,
 .folder {
     display: flex;
+    justify-content: space-between;
+}
+.folder-name-cont {
+    display: flex;
     gap: var(--spacing-lg);
 }
+
 .folder {
     color: var(--text-primary);
     border-bottom: 1px solid var(--border-color);
     padding: var(--spacing-sm);
     cursor: pointer;
+    border-radius: var(--border-radius-sm);
+}
+
+.active {
+    background-color: var(--primary-color);
+}
+.folder-nav {
+    a {
+        color: var(--primary-color);
+    }
 }

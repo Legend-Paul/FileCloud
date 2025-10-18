@@ -4,6 +4,8 @@
     min-height: 100vh;
     width: 100%;
     background-color: var(--bg-secondary);
+    overflow: scroll;
+    position: relative;
 }
 
 /* Sidebar Styles */

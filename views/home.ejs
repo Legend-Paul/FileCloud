@@ -355,6 +355,20 @@
                     .forEach((element) => element.classList.add("active"));
             }
 
+            // delete actions
+            const folders = document.querySelectorAll(".folder");
+            folders.forEach((folder) => {
+                folder.addEventListener("click", () => {
+                    folder.classList.toggle("active-folder");
+                });
+            });
+            const files = document.querySelectorAll(".file");
+            files.forEach((file) => {
+                file.addEventListener("click", () => {
+                    file.classList.toggle("active-file");
+                });
+            });
+
             // Initialize theme
             function initTheme() {
                 const savedTheme = localStorage.getItem("theme") || "dark";

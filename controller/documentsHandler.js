@@ -7,8 +7,6 @@ const documentsGet = async (req, res) => {
         const path = req.originalUrl;
         const name = path.split("/").at(-1);
         const pathArray = path.split("/");
-        console.log(pathArray);
-        console.log(pathArray.slice(2).join("/"));
 
         const [folders, files] = await Promise.all([
             getFolders(req, res, "DOCUMENT"),
