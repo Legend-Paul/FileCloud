@@ -51,7 +51,6 @@ a {
     top: var(--spacing-lg);
     right: -var(--spacing-md);
     display: none;
-    z-index: 10;
 }
 .active-kebab-menu-contaier {
     .kebab-menu-options {
