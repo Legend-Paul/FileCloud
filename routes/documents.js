@@ -2,6 +2,8 @@ const express = require("express");
 const documentsHandler = require("../controller/documentsHandler");
 const renameHandler = require("../controller/rename");
 const deleteHandler = require("../controller/delete");
+const viewFileHandler = require("../controller/viewFileHandler");
+const path = require("node:path");
 
 const multer = require("multer");
 
@@ -10,8 +12,9 @@ const storage = multer.diskStorage({
         cb(null, "uploads/");
     },
     filename: function (req, file, cb) {
-        const uniqueSuffix = file.fieldname + "-" + Date.now();
-        cb(null, uniqueSuffix);
+        const ext = path.extname(file.originalname);
+        const uniqueSuffix = Date.now();
+        cb(null, file.fieldname + "-" + uniqueSuffix + ext);
     },
 });
 
@@ -25,7 +28,9 @@ documentsRouter.post(
     documentsHandler.documentsNewFile
 );
 documentsRouter.post("/*new/folder", documentsHandler.documentsNewFolder);
+documentsRouter.get("/*view/file", viewFileHandler);
 documentsRouter.post("/*item/delete", deleteHandler);
 documentsRouter.post("/*item/rename", renameHandler);
 documentsRouter.get("/{*splat}", documentsHandler.documentsGet);
+
 module.exports = documentsRouter;
