@@ -15,6 +15,7 @@ const loginRouter = require("./routes/login");
 const logoutRouter = require("./routes/logout");
 const forgotPasswordRouter = require("./routes/forgotPassword");
 const errorHandler = require("./controller/errorHandler");
+const isAuth = require("./utils/checkAuth");
 
 const PORT = process.env.PORT || 8000;
 const app = express();
@@ -56,8 +57,8 @@ app.use("/forgot-password", forgotPasswordRouter);
 app.use("/login", loginRouter);
 app.use("/logout", logoutRouter);
 app.use("/signup", signupRouter);
-app.use("/documents", documentsRouter);
-app.use("/", homeRouter);
+app.use("/documents", isAuth, documentsRouter);
+app.use("/", isAuth, homeRouter);
 
 // Error handler
 app.use(errorHandler);
