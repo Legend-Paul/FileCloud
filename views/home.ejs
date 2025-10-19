@@ -243,16 +243,22 @@
         <script>
             // Modal functions
             function openUploadModal() {
+                const path = "<%= locals.path %>";
+                if (!path) return;
                 document.getElementById("uploadModal").classList.add("active");
             }
 
             function openCreateFolderModal() {
+                const path = "<%= locals.path %>";
+                if (!path) return;
                 document
                     .getElementById("createFolderModal")
                     .classList.add("active");
             }
 
             function openShareModal() {
+                const path = "<%= locals.path %>";
+                if (!path) return;
                 document.getElementById("shareModal").classList.add("active");
             }
 
