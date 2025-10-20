@@ -40,5 +40,191 @@
             </div>
             <% } %>
         </div>
+
+        <% if (locals.file) { %>
+        <script>
+            function initFileViewer(fileName, fileUrl) {
+                const fileExt = fileName.split(".").pop().toLowerCase();
+                const contentDiv = document.getElementById("fileContent");
+
+                // File type categories
+                const imageExts = [
+                    "jpg",
+                    "jpeg",
+                    "png",
+                    "gif",
+                    "bmp",
+                    "webp",
+                    "svg",
+                    "ico",
+                    "tiff",
+                ];
+                const videoExts = [
+                    "mp4",
+                    "webm",
+                    "ogg",
+                    "mov",
+                    "avi",
+                    "mkv",
+                    "m4v",
+                ];
+                const audioExts = ["mp3", "wav", "ogg", "aac", "m4a", "flac"];
+                const pdfExts = ["pdf"];
+                const textExts = [
+                    "txt",
+                    "csv",
+                    "json",
+                    "xml",
+                    "log",
+                    "md",
+                    "yaml",
+                    "yml",
+                    "ini",
+                    "conf",
+                ];
+                const codeExts = [
+                    "js",
+                    "html",
+                    "css",
+                    "py",
+                    "java",
+                    "cpp",
+                    "c",
+                    "php",
+                    "rb",
+                    "go",
+                    "rs",
+                    "ts",
+                    "jsx",
+                    "tsx",
+                    "vue",
+                ];
+                const officeExts = [
+                    "doc",
+                    "docx",
+                    "xls",
+                    "xlsx",
+                    "ppt",
+                    "pptx",
+                ];
+
+                function renderFile() {
+                    let content = "";
+
+                    if (imageExts.includes(fileExt)) {
+                        content = createImageViewer(fileUrl, fileName);
+                    } else if (videoExts.includes(fileExt)) {
+                        content = createVideoPlayer(fileUrl, fileExt);
+                    } else if (audioExts.includes(fileExt)) {
+                        content = createAudioPlayer(fileUrl, fileExt);
+                    } else if (pdfExts.includes(fileExt)) {
+                        content = createPDFViewer(fileUrl);
+                    } else if (
+                        textExts.includes(fileExt) ||
+                        codeExts.includes(fileExt)
+                    ) {
+                        loadTextFile(fileUrl, contentDiv);
+                        return;
+                    } else if (officeExts.includes(fileExt)) {
+                        content = createOfficeViewer(fileUrl);
+                    } else {
+                        content = createUnsupportedView(fileExt);
+                    }
+
+                    contentDiv.innerHTML = content;
+                }
+
+                function createImageViewer(url, name) {
+                    return `<img src="${url}" alt="${name}" onerror="showError('Failed to load image')">`;
+                }
+
+                function createVideoPlayer(url, ext) {
+                    return `
+            <video controls class="video-container">
+                <source src="${url}" type="video/${ext}">
+                <source src="${url}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        `;
+                }
+
+                function createAudioPlayer(url, ext) {
+                    return `
+            <div class="audio-player-container">
+                <div class="audio-icon">🎵</div>
+                <audio controls class="audio-controls">
+                    <source src="${url}" type="audio/${ext}">
+                    <source src="${url}" type="audio/mpeg">
+                    Your browser does not support the audio tag.
+                </audio>
+            </div>
+        `;
+                }
+
+                function createPDFViewer(url) {
+                    return `<iframe src="${url}" type="application/pdf"></iframe>`;
+                }
+
+                function createOfficeViewer(url) {
+                    const encodedUrl = encodeURIComponent(url);
+                    return `
+            <iframe src="https://docs.google.com/viewer?url=${encodedUrl}&embedded=true"></iframe>
+            <p class="viewer-note">
+                <em>If the document doesn't load, please download it using the button above.</em>
+            </p>
+        `;
+                }
+
+                function createUnsupportedView(ext) {
+                    return `
+            <div class="unsupported">
+                <div class="unsupported-icon">📎</div>
+                <h2>Preview not available</h2>
+                <p>
+                    This file type (${ext.toUpperCase()}) cannot be previewed.<br>
+                    Please download the file to view it.
+                </p>
+            </div>
+        `;
+                }
+
+                function loadTextFile(url, container) {
+                    fetch(url)
+                        .then((response) => response.text())
+                        .then((text) => {
+                            container.innerHTML = `<div class="text-content">${escapeHtml(
+                                text
+                            )}</div>`;
+                        })
+                        .catch((err) => {
+                            showError("Failed to load text file");
+                        });
+                }
+
+                function showError(message) {
+                    contentDiv.innerHTML = `
+            <div class="error-message">
+                <div class="file-icon">⚠️</div>
+                <h3>${message}</h3>
+                <p>Please try downloading the file instead.</p>
+            </div>
+        `;
+                }
+
+                function escapeHtml(text) {
+                    const div = document.createElement("div");
+                    div.textContent = text;
+                    return div.innerHTML;
+                }
+
+                renderFile();
+            }
+        </script>
+        <script>
+            const fileName = "<%= file.name %>";
+            const fileUrl = "<%= fileUrl %>";
+            initFileViewer(fileName, fileUrl);
+        </script>
+        <% } %>
     </body>
 </html>
