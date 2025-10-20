@@ -1,8 +1,9 @@
 const { addNewFile, getFiles } = require("../utils/files");
 const prisma = require("../utils/prisma");
 const { createNewFolder, getFolders } = require("../utils/folders");
-const TYPE = "DOCUMENT";
-const documentsGet = async (req, res) => {
+const TYPE = "IMAGE";
+
+const imagesGet = async (req, res) => {
     try {
         const path = req.originalUrl;
         const name = path.split("/").at(-1);
@@ -19,7 +20,7 @@ const documentsGet = async (req, res) => {
     }
 };
 
-const documentsNewFile = async (req, res) => {
+const imagesNewFile = async (req, res) => {
     try {
         await addNewFile(req, res, TYPE);
     } catch (err) {
@@ -27,7 +28,7 @@ const documentsNewFile = async (req, res) => {
     }
 };
 
-const documentsNewFolder = async (req, res) => {
+const imagesNewFolder = async (req, res) => {
     try {
         await createNewFolder(req, res, TYPE);
     } catch (err) {
@@ -36,7 +37,7 @@ const documentsNewFolder = async (req, res) => {
 };
 
 module.exports = {
-    documentsGet,
-    documentsNewFile,
-    documentsNewFolder,
+    imagesGet,
+    imagesNewFile,
+    imagesNewFolder,
 };
