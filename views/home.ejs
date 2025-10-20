@@ -352,6 +352,15 @@
                     .classList.add("active")
                     .forEach((element) => element.classList.add("active"));
             }
+            // diable folder/file being active when view file/folder is clicked
+            const viewLinks = document.querySelectorAll(
+                ".view-file, .view-folder"
+            );
+            viewLinks.forEach((link) => {
+                link.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                });
+            });
 
             // delete actions
             const selectedItems = {};
