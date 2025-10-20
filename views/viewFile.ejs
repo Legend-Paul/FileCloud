@@ -3,14 +3,42 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>FileCloud</title>
+        <link rel="icon" href="/logo/logo.png" type="image/png" />
+        <link rel="stylesheet" href="/styles.css" />
+        <link rel="stylesheet" href="/viewFile.css" />
     </head>
     <body>
-        <a href="http://localhost:5000/uploads/file-1760863132670.pdf">CV</a>
-        <img
-            src="http://localhost:5000/uploads/cv.pdf-1760862576088
-"
-            alt="img"
-        />
+        <div class="header">
+            <div class="header-content">
+                <a href="<%= back %>" class="back-link"> ← Go Back </a>
+                <% if (locals.file) { %>
+                <div class="file-name"><%= file.name %></div>
+                <a href="<%= fileUrl %>" class="download-link" download>
+                    ⬇ Download
+                </a>
+                <% } %>
+            </div>
+        </div>
+
+        <div class="viewer-container">
+            <% if (locals.file) { %>
+            <div class="file-viewer">
+                <div class="viewer-content">
+                    <div id="fileContent" class="full-width">
+                        <div class="loading-message">
+                            <div class="file-icon">📄</div>
+                            <p>Loading file...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } else { %>
+            <div class="error-message">
+                <div class="file-icon">❌</div>
+                <h2>File not found</h2>
+            </div>
+            <% } %>
+        </div>
     </body>
 </html>

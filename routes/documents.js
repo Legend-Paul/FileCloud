@@ -21,6 +21,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 const documentsRouter = express.Router();
+documentsRouter.get("/*view/:id", viewFileHandler);
 documentsRouter.get("/", documentsHandler.documentsGet);
 documentsRouter.post(
     "/*new/file",
@@ -28,7 +29,6 @@ documentsRouter.post(
     documentsHandler.documentsNewFile
 );
 documentsRouter.post("/*new/folder", documentsHandler.documentsNewFolder);
-documentsRouter.get("/*view/file", viewFileHandler);
 documentsRouter.post("/*item/delete", deleteHandler);
 documentsRouter.post("/*item/rename", renameHandler);
 documentsRouter.get("/{*splat}", documentsHandler.documentsGet);

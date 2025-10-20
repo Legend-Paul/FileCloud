@@ -20,7 +20,6 @@
         align-items: center;
         justify-content: center;
         gap: var(--spacing-md);
-        color: var(--text-muted);
     }
 }
 .file {

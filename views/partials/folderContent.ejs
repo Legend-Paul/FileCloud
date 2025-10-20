@@ -63,11 +63,7 @@
             <div class="files-container">
                 <% if(files.length > 0) {%>
                 <div class="files-label">
-                    <p class="name">Name</p>
-                    <div class="file-summary">
-                        <p class="type">Type</p>
-                        <p class="size">Size</p>
-                    </div>
+                    <p class="name">Files</p>
                 </div>
                 <% } %>
 
@@ -89,10 +85,23 @@
                             </svg>
                             <p class="name"><%= file.name %></p>
                         </div>
-                        <div class="file-summary">
-                            <p class="type"><%= file.mimeType %></p>
-                            <p class="size"><%= file.size %></p>
-                        </div>
+                        <a
+                            href="<%= locals.path %>/view/<%= file.id %>"
+                            class="file-summary"
+                        >
+                            <svg
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"
+                                />
+                            </svg>
+                        </a>
                     </div>
                     <% }) %>
                 </div>
