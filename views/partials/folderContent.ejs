@@ -8,6 +8,7 @@
     </head>
     <body>
         <div class="folder-container">
+            <% if(pathArray) {%>
             <div class="folder-nav">
                 <% pathArray.forEach((path, i)=>{ %> <% if(path){ %>
                 <a href="<%= pathArray.slice(0, i+1).join('/') %>">
@@ -15,7 +16,7 @@
                 </a>
                 <% } %> <% })%>
             </div>
-
+            <% } %> <% if(folders) {%>
             <div class="folders-container">
                 <% folders.forEach(folder=>{ %>
                 <div class="folder" data-id="<%= folder.id %>">
@@ -51,14 +52,8 @@
                 </div>
                 <% }); %>
             </div>
-            <% if(files) {%>
+            <% } %> <% if(files) {%>
             <div class="files-container">
-                <% if(files.length > 0) {%>
-                <div class="files-label">
-                    <p class="name">Files</p>
-                </div>
-                <% } %>
-
                 <div class="files">
                     <% files.forEach(file=> { %>
                     <div class="file" data-id="<%= file.id %>">

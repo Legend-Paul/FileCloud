@@ -19,13 +19,13 @@
 
                 <!-- Content Area -->
                 <div class="content">
-                    <% if (locals.path) {%>
+                    <% if (!locals.path) {%>
+                    <!-- Files grid -->
+                    <%- include("partials/filesGrid.ejs") %> <%} %>
                     <!--folder content -->
                     <%- include("partials/folderContent.ejs", {files:
                     locals.files, folders: locals.folders, path: locals.path,
-                    pathArray: locals.pathArray}) %> <%} else {%>
-                    <!-- Files grid -->
-                    <%- include("partials/filesGrid.ejs") %> <% } %>
+                    pathArray: locals.pathArray}) %>
                 </div>
             </main>
         </div>

@@ -5,6 +5,7 @@
 .files {
     display: grid;
     gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
 }
 .file,
 .files-label {
