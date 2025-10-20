@@ -16,7 +16,7 @@
     margin-left: 200px; /* Width of the sidebar */
     flex: 1;
     padding: var(--spacing-xl);
-    margin-top: calc(var(--spacing-xl));
+    margin-top: calc(var(--spacing-xl) * 4);
 }
 
 .content-header {
@@ -119,18 +119,28 @@
     accent-color: var(--primary-color);
 }
 
-@media screen and (width < 1370px) {
-    .content {
-        margin-top: calc(var(--spacing-xl) * 2 + var(--spacing-xl));
-    }
-}
 @media screen and (width < 1118px) {
     .content {
-        margin-top: calc(var(--spacing-xl) * 2 + var(--spacing-xl) * 3);
+        margin-top: calc(var(--spacing-xl) * 4);
     }
 }
-@media screen and (width < 717px) {
+@media screen and (width < 963px) {
     .content {
-        margin-top: calc(var(--spacing-xl) * 2 + var(--spacing-xl) * 5);
+        margin-top: calc(var(--spacing-xl) * 6);
+    }
+}
+@media screen and (width < 681px) {
+    .content {
+        margin-top: calc(var(--spacing-xl) * 8);
+    }
+}
+@media screen and (width < 577px) {
+    .content {
+        margin-top: calc(var(--spacing-xl) * 10);
+    }
+}
+@media screen and (width < 559px) {
+    .content {
+        margin-top: calc(var(--spacing-xl) * 12);
     }
 }

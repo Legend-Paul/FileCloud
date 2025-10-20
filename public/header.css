@@ -12,7 +12,9 @@
 
 .header-content {
     display: flex;
+    width: 100%;
     gap: var(--spacing-lg);
+    padding: var(--spacing-lg);
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
@@ -35,7 +37,8 @@
     gap: var(--spacing-lg);
     align-items: center;
     flex-wrap: wrap;
-    justify-content: start;
+    width: 100%;
+    justify-content: space-between;
 }
 /* Button Styles */
 .btn {

@@ -101,33 +101,4 @@
             <% } %>
         </div>
     </body>
-    <!-- <script>
-        const kebabMenus = document.querySelectorAll(".kebab-menu-contaier");
-        kebabMenus.forEach((memu) => {
-            memu.addEventListener("click", () => {
-                const active = document.querySelector(
-                    ".active-kebab-menu-contaier"
-                );
-                if (active)
-                    active.classList.remove("active-kebab-menu-contaier");
-                memu.classList.add("active-kebab-menu-contaier");
-                const currentActive = document.querySelector(
-                    ".active-kebab-menu-contaier"
-                );
-                currentActive.parentElement.classList.toggle("active-folder");
-            });
-            window.addEventListener("click", function (event) {
-                const modals = document.querySelectorAll(
-                    ".kebab-menu-contaier"
-                );
-                console.log("click");
-                modals.forEach((modal) => {
-                    if (event.target === modal) {
-                        console.log("click");
-                        modal.classList.remove("active-kebab-menu-contaier");
-                    }
-                });
-            });
-        });
-    </script> -->
 </html>
