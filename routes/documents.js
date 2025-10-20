@@ -29,6 +29,7 @@ documentsRouter.post(
     documentsHandler.documentsNewFile
 );
 documentsRouter.post("/*new/folder", documentsHandler.documentsNewFolder);
+documentsRouter.post("/*item/share", documentsHandler.documentsNewFolder);
 documentsRouter.post("/*item/delete", deleteHandler);
 documentsRouter.post("/*item/rename", renameHandler);
 documentsRouter.get("/{*splat}", documentsHandler.documentsGet);
