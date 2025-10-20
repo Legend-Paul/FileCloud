@@ -3,6 +3,7 @@ const documentsHandler = require("../controller/documentsHandler");
 const renameHandler = require("../controller/rename");
 const deleteHandler = require("../controller/delete");
 const viewFileHandler = require("../controller/viewFileHandler");
+const shareHandler = require("../controller/shareHandler");
 const path = require("node:path");
 
 const multer = require("multer");
@@ -29,7 +30,7 @@ documentsRouter.post(
     documentsHandler.documentsNewFile
 );
 documentsRouter.post("/*new/folder", documentsHandler.documentsNewFolder);
-documentsRouter.post("/*item/share", documentsHandler.documentsNewFolder);
+documentsRouter.post("/*item/share", shareHandler);
 documentsRouter.post("/*item/delete", deleteHandler);
 documentsRouter.post("/*item/rename", renameHandler);
 documentsRouter.get("/{*splat}", documentsHandler.documentsGet);
