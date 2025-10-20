@@ -11,6 +11,7 @@ require("./utils/passport");
 const homeRouter = require("./routes/home");
 const documentsRouter = require("./routes/documents");
 const imagesRouter = require("./routes/images");
+const videosRouter = require("./routes/videos");
 const signupRouter = require("./routes/signup");
 const loginRouter = require("./routes/login");
 const logoutRouter = require("./routes/logout");
@@ -60,6 +61,7 @@ app.use("/logout", logoutRouter);
 app.use("/signup", signupRouter);
 app.use("/documents", isAuth, documentsRouter);
 app.use("/images", isAuth, imagesRouter);
+app.use("/videos", isAuth, videosRouter);
 app.use("/", isAuth, homeRouter);
 
 // Error handler
