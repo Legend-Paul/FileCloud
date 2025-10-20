@@ -129,6 +129,8 @@
                 action="<%= locals.path %>/share"
                 method="post"
                 class="modal-content"
+                id="shareForm"
+                onsubmit="shareFile(event)"
             >
                 <div class="modal-header">
                     <h3>Share File</h3>
@@ -140,6 +142,7 @@
                         id="shareTime"
                         class="form-input radio-input"
                         name="shareTime"
+                        value="now"
                         checked
                     />
                 </div>
@@ -149,6 +152,7 @@
                         type="radio"
                         id="shareTime"
                         class="form-input radio-input"
+                        value="1day"
                         name="shareTime"
                     />
                 </div>
@@ -159,7 +163,7 @@
                         id="shareEmail"
                         class="form-input"
                         placeholder="Enter email address"
-                        name="shareEmail"
+                        name="email"
                     />
                 </div>
                 <div class="form-group">
@@ -177,11 +181,7 @@
                     >
                         Cancel
                     </button>
-                    <button
-                        type="submit"
-                        class="btn btn-primary"
-                        onclick="shareFile()"
-                    >
+                    <button type="submit" class="btn share-btn btn-primary">
                         Share
                     </button>
                 </div>
@@ -275,12 +275,6 @@
                     .classList.add("active");
             }
 
-            function openShareModal() {
-                const path = "<%= locals.path %>";
-                if (!path) return;
-                document.getElementById("shareModal").classList.add("active");
-            }
-
             function closeModal(modalId) {
                 document.getElementById(modalId).classList.remove("active");
             }
@@ -297,15 +291,6 @@
                 const folderName = document.getElementById("folderName").value;
                 if (folderName) {
                     closeModal("createFolderModal");
-                }
-            }
-
-            function shareFile() {
-                const email = document.getElementById("shareEmail").value;
-                const permission =
-                    document.getElementById("sharePermission").value;
-                if (email) {
-                    closeModal("shareModal");
                 }
             }
 
@@ -455,6 +440,9 @@
 
             function renameFile() {
                 const input = document.getElementById("rename-item");
+                const newFileName =
+                    document.getElementById("newFileName").value;
+                if (!newFileName) return;
                 const selected = Object.keys(selectedItems)[0];
                 const itemToRename = Array.from(selectedItems[selected])[0];
                 const fileType =
@@ -471,6 +459,39 @@
                 });
 
                 closeModal("renameModal");
+            }
+
+            // Share file
+            function openShareModal() {
+                if (!Object.keys(selectedItems).length > 0) return;
+                const canSend =
+                    Object.values(selectedItems).filter((set) => set.size === 1)
+                        .length === 1;
+                if (!canSend) return;
+
+                document.getElementById("shareModal").classList.add("active");
+            }
+
+            function shareFile(event) {
+                // prevent form from auto-submitting before we update the action
+                event.preventDefault();
+
+                const selected = Object.keys(selectedItems).find(
+                    (key) => selectedItems[key].size === 1
+                );
+                const itemToSend = Array.from(selectedItems[selected])[0];
+                const email = document.getElementById("shareEmail").value;
+                const form = document.getElementById("shareForm");
+
+                if (email) {
+                    // dynamically update the action
+                    form.action = `<%= locals.path %>/share/${encodeURIComponent(
+                        itemToSend
+                    )}`;
+                    console.log("Form action set to", form.action);
+                    form.submit();
+                    closeModal("shareModal");
+                }
             }
 
             // Initialize theme

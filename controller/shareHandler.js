@@ -8,25 +8,28 @@ const transporter = nodemailer.createTransport({
     port: 587,
     secure: false,
     auth: {
-        user: process.env.EMAIL, // e.g. your Ethereal or Gmail
+        user: process.env.EMAIL,
         pass: process.env.PASSWORD,
     },
 });
 
-async function shareHandler(req, res) {
+const shareHandler = async (req, res) => {
+    const { email } = req.body;
+    const { id } = req.params;
+
     try {
-        const { email, shareTime } = req.body; // Expect email + filePath in body
+        const itemToSend = await prisma.file.findUnique({
+            where: { id },
+        });
 
-        // You can also get file path from req.file if uploaded with Multer:
-        // const filePath = req.file?.path;
-
-        if (!email || !filePath) {
+        if (!email || !itemToSend) {
             return res
                 .status(400)
                 .json({ error: "Email and file path are required." });
         }
 
-        // Prepare and send email
+        const filePath = itemToSend.url;
+
         const info = await transporter.sendMail({
             from: `"File Share" <${process.env.EMAIL}>`,
             to: email,
@@ -36,17 +39,23 @@ async function shareHandler(req, res) {
             attachments: [
                 {
                     filename: path.basename(filePath),
-                    path: filePath, // e.g. 'uploads/cv-1760862576088.pdf'
+                    path: filePath,
                 },
             ],
         });
+        // 👇 THIS is the important line — it prints the Ethereal preview link:
 
-        console.log("✅ Message sent:", info.messageId);
-        res.json({ success: true, message: "Email sent successfully!" });
+        res.render("sentStatus", {
+            success: true,
+            icon: "✅",
+            message: "Email sent successfully!",
+        });
     } catch (error) {
-        console.error("❌ Error sending email:", error);
-        res.status(500).json({ error: "Failed to send email." });
+        res.render("sentStatus", {
+            icon: "❌",
+            message: "Email sent successfully!",
+        });
     }
-}
+};
 
 module.exports = shareHandler;

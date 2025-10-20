@@ -30,7 +30,7 @@ documentsRouter.post(
     documentsHandler.documentsNewFile
 );
 documentsRouter.post("/*new/folder", documentsHandler.documentsNewFolder);
-documentsRouter.post("/*item/share", shareHandler);
+documentsRouter.post("/*share/:id", shareHandler);
 documentsRouter.post("/*item/delete", deleteHandler);
 documentsRouter.post("/*item/rename", renameHandler);
 documentsRouter.get("/{*splat}", documentsHandler.documentsGet);
