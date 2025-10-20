@@ -1,4 +1,5 @@
 const prisma = require("../utils/prisma");
+const path = require("node:path");
 
 async function addNewFile(req, res, type) {
     const { fileType } = req.body;
@@ -22,11 +23,14 @@ async function addNewFile(req, res, type) {
         const nameExist = folder.files.find(
             (f) => f.name === file.originalname
         );
+        const ext = path.extname(file.originalname);
+        const uniqueSuffix = Date.now();
+        const name = nameExist
+            ? path.basename(file.originalname, ext) + "-" + uniqueSuffix + ext
+            : file.originalname;
 
         return {
-            name: nameExist
-                ? file.originalname + "-" + Date.now()
-                : file.originalname,
+            name,
             mimeType,
             url: file.path,
             size: file.size,
