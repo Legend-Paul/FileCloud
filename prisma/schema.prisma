@@ -53,6 +53,7 @@ enum FolderType {
   DOCUMENT
   IMAGE
   VIDEO
+  AUDIO
 }
 
 model File {

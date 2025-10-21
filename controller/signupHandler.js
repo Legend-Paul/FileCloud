@@ -66,6 +66,7 @@ const signupPost = [
                                 { name: "Documents", type: "DOCUMENT" },
                                 { name: "Images", type: "IMAGE" },
                                 { name: "Videos", type: "VIDEO" },
+                                { name: "Audios", type: "AUDIO" },
                             ],
                         },
                     },
