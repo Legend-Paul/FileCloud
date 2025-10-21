@@ -230,6 +230,28 @@
             </form>
         </div>
 
+        <!-- Details Modal -->
+        <div id="detailsModal" class="modal">
+            <form
+                action="<%= locals.path %>/details"
+                method="post"
+                class="modal-content"
+            >
+                <div class="modal-header details-header"></div>
+                <div class="details-group"></div>
+
+                <div class="modal-actions">
+                    <button
+                        class="btn btn-secondary"
+                        onclick="closeModal('detailsModal')"
+                        type="button"
+                    >
+                        Close
+                    </button>
+                </div>
+            </form>
+        </div>
+
         <!-- Delete Modal -->
         <div id="deleteModal" class="modal">
             <form
@@ -493,6 +515,43 @@
                     form.submit();
                     closeModal("shareModal");
                 }
+            }
+
+            //  Details actions
+            function openDetailsModal() {
+                if (!Object.keys(selectedItems).length > 0) return;
+                const canView =
+                    Object.values(selectedItems).filter((set) => set.size === 1)
+                        .length === 1;
+                if (!canView) return;
+                const selected = Object.keys(selectedItems).find(
+                    (key) => selectedItems[key].size === 1
+                );
+                const detailsGroup = document.querySelector(".details-group");
+                detailsGroup.innerHTML = "";
+
+                const modalHeader = document.querySelector(".details-header");
+                modalHeader.innerHTML = "";
+
+                const itemToView = Array.from(selectedItems[selected])[0];
+                const { name, ...rest } = itemToView;
+
+                modalHeader.innerHTML = `<h3>${name} Details</h3>`;
+
+                Object.entries(itemToView).forEach(([key, value]) => {
+                    if (key === "name" || key === "id") {
+                        return;
+                    }
+
+                    detailsGroup.innerHTML += `
+                        <div class="detail-item">
+                            <p><strong>${key}:</strong></p>
+                            <p>${value}</p>
+                        </div>
+                    `;
+                });
+
+                document.getElementById("detailsModal").classList.add("active");
             }
 
             // Initialize theme
