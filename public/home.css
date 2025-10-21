@@ -16,7 +16,7 @@
     margin-left: 200px; /* Width of the sidebar */
     flex: 1;
     padding: var(--spacing-xl);
-    margin-top: calc(var(--spacing-xl) * 4);
+    margin-top: calc(var(--spacing-xl) * 5);
 }
 
 .content-header {
@@ -151,4 +151,8 @@
     .content {
         margin-top: calc(var(--spacing-xl) * 15);
     }
+}
+
+.closed-header {
+    margin-top: calc(var(--spacing-xl) * 5) !important;
 }

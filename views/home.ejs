@@ -554,6 +554,34 @@
                 document.getElementById("detailsModal").classList.add("active");
             }
 
+            //open Header
+            const openHeader = () => {
+                const header = document.querySelector(".header-actions");
+                const chevronClose = document.getElementById("chevron-close");
+                const chevronOpen = document.getElementById("chevron-open");
+                const content = document.querySelector(".content");
+                header.classList.remove("hidden");
+
+                chevronClose.classList.remove("hidden");
+                chevronOpen.classList.add("hidden");
+                content.classList.remove("closed-header");
+                console.log("Header opened");
+            };
+
+            //close Header
+            const closeHeader = () => {
+                const header = document.querySelector(".header-actions");
+                const chevronClose = document.getElementById("chevron-close");
+                const chevronOpen = document.getElementById("chevron-open");
+                const content = document.querySelector(".content");
+
+                header.classList.add("hidden");
+                chevronClose.classList.add("hidden");
+                chevronOpen.classList.remove("hidden");
+                content.classList.add("closed-header");
+                console.log("Header closed");
+            };
+
             // Initialize theme
             function initTheme() {
                 const savedTheme = localStorage.getItem("theme") || "dark";
