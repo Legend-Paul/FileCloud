@@ -104,6 +104,6 @@ Planned or possible enhancements include:
 ## 👨‍💻 Author
 
 **Developed by:** [Legend-Paul](https://github.com/Legend-Paul)  
-**Project:** [FileCloud Repository](https://lwgwndpaul-filecloud.onrender.com)
+**Project:** [FileCloud Repository](https://legendpaul-filecloud.onrender.com)
 
 > FileCloud — Your personal file-sharing cloud. Fast, minimal, and open-source.
