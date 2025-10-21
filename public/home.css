@@ -127,28 +127,28 @@
 }
 @media screen and (width < 1095px) {
     .content {
-        margin-top: calc(var(--spacing-xl) * 6);
+        margin-top: calc(var(--spacing-xl) * 7);
     }
 }
 
 @media screen and (width < 681px) {
     .content {
-        margin-top: calc(var(--spacing-xl) * 8);
+        margin-top: calc(var(--spacing-xl) * 9);
     }
 }
 @media screen and (width < 585px) {
     .content {
-        margin-top: calc(var(--spacing-xl) * 10);
+        margin-top: calc(var(--spacing-xl) * 11);
     }
 }
 
 @media screen and (width < 561px) {
     .content {
-        margin-top: calc(var(--spacing-xl) * 12);
+        margin-top: calc(var(--spacing-xl) * 13);
     }
 }
 @media screen and (width < 555px) {
     .content {
-        margin-top: calc(var(--spacing-xl) * 14);
+        margin-top: calc(var(--spacing-xl) * 15);
     }
 }

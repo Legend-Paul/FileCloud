@@ -108,3 +108,11 @@
 label {
     margin-bottom: var(--spacing-md);
 }
+
+.chevrons-container {
+    justify-self: end;
+    cursor: pointer;
+}
+.hidden {
+    display: none;
+}
