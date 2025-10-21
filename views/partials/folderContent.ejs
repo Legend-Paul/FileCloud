@@ -19,7 +19,7 @@
             <% } %> <% if(folders) {%>
             <div class="folders-container">
                 <% folders.forEach(folder=>{ %>
-                <div class="folder" data-id="<%= folder.id %>">
+                <div class="folder" data-id="<%= JSON.stringify(folder) %>">
                     <div class="folder-name-cont">
                         <svg
                             fill="none"
@@ -56,7 +56,7 @@
             <div class="files-container">
                 <div class="files">
                     <% files.forEach(file=> { %>
-                    <div class="file" data-id="<%= file.id %>">
+                    <div class="file" data-id="<%= JSON.stringify(file) %>">
                         <div class="file-name">
                             <svg
                                 fill="none"

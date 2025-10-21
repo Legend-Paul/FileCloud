@@ -22,7 +22,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 const documentsRouter = express.Router();
-documentsRouter.get("/*view/:id", viewFileHandler);
+
 documentsRouter.get("/", documentsHandler.documentsGet);
 documentsRouter.post(
     "/*new/file",
@@ -30,9 +30,10 @@ documentsRouter.post(
     documentsHandler.documentsNewFile
 );
 documentsRouter.post("/*new/folder", documentsHandler.documentsNewFolder);
-documentsRouter.post("/*share/:id", shareHandler);
 documentsRouter.post("/*item/delete", deleteHandler);
 documentsRouter.post("/*item/rename", renameHandler);
+documentsRouter.post("/*share/:id", shareHandler);
+documentsRouter.get("/*view/:id", viewFileHandler);
 documentsRouter.get("/{*splat}", documentsHandler.documentsGet);
 
 module.exports = documentsRouter;

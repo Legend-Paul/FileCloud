@@ -2,6 +2,7 @@ const prisma = require("../utils/prisma");
 
 const deleteHandler = async (req, res) => {
     const { deleteItems } = req.body;
+    console.log(deleteItems);
 
     try {
         const path = req.originalUrl;
@@ -9,17 +10,19 @@ const deleteHandler = async (req, res) => {
 
         const items = JSON.parse(deleteItems);
         const { folders, files } = items;
+        const folderIds = folders.map((folder) => folder.id);
+        const fileIds = files.map((file) => file.id);
 
         await Promise.all([
             prisma.folder.deleteMany({
                 where: {
-                    id: { in: folders },
+                    id: { in: folderIds },
                     owner: req.user,
                 },
             }),
             prisma.file.deleteMany({
                 where: {
-                    id: { in: files },
+                    id: { in: fileIds },
                     owner: req.user,
                 },
             }),

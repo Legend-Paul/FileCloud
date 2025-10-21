@@ -355,13 +355,15 @@
             const folders = document.querySelectorAll(".folder");
             folders.forEach((folder) => {
                 folder.addEventListener("click", () => {
-                    const id = folder.getAttribute("data-id");
+                    const selectedFolder = JSON.parse(
+                        folder.getAttribute("data-id")
+                    );
                     if (!selectedItems["folders"])
                         selectedItems["folders"] = new Set();
-                    if (selectedItems["folders"].has(id)) {
-                        selectedItems["folders"].delete(id);
+                    if (selectedItems["folders"].has(selectedFolder.id)) {
+                        selectedItems["folders"].delete(selectedFolder.id);
                     } else {
-                        selectedItems["folders"].add(id);
+                        selectedItems["folders"].add(selectedFolder);
                     }
 
                     folder.classList.toggle("active-folder");
@@ -371,13 +373,15 @@
             const files = document.querySelectorAll(".file");
             files.forEach((file) => {
                 file.addEventListener("click", () => {
-                    const id = file.getAttribute("data-id");
+                    const selectedFile = JSON.parse(
+                        file.getAttribute("data-id")
+                    );
                     if (!selectedItems["files"])
                         selectedItems["files"] = new Set();
-                    if (selectedItems["files"].has(id)) {
-                        selectedItems["files"].delete(id);
+                    if (selectedItems["files"].has(selectedFile.id)) {
+                        selectedItems["files"].delete(selectedFile.id);
                     } else {
-                        selectedItems["files"].add(id);
+                        selectedItems["files"].add(selectedFile);
                     }
 
                     file.classList.toggle("active-file");
@@ -420,13 +424,16 @@
                     (key) => selectedItems[key].size === 1
                 );
                 const itemToRename = Array.from(selectedItems[selected])[0];
+
                 const element =
                     selected === "files"
                         ? document.querySelector(
-                              `.file[data-id="${itemToRename}"]`
+                              `.file[data-id='${JSON.stringify(itemToRename)}']`
                           )
                         : document.querySelector(
-                              `.folder[data-id="${itemToRename}"]`
+                              `.folder[data-id='${JSON.stringify(
+                                  itemToRename
+                              )}']`
                           );
                 const previousName = element.querySelector(".name").textContent;
                 const modalInput = document.getElementById("newFileName");
@@ -447,17 +454,10 @@
                 if (!newFileName) return;
                 const selected = Object.keys(selectedItems)[0];
                 const itemToRename = Array.from(selectedItems[selected])[0];
-                const fileType =
-                    selected === "files"
-                        ? document
-                              .querySelector(`.file[data-id="${itemToRename}"]`)
-                              .querySelector(".type").textContent
-                        : null;
 
                 input.value = JSON.stringify({
                     type: selected,
-                    id: itemToRename,
-                    fileType,
+                    itemToRename,
                 });
 
                 closeModal("renameModal");
@@ -488,9 +488,8 @@
                 if (email) {
                     // dynamically update the action
                     form.action = `<%= locals.path %>/share/${encodeURIComponent(
-                        itemToSend
+                        itemToSend.id
                     )}`;
-                    console.log("Form action set to", form.action);
                     form.submit();
                     closeModal("shareModal");
                 }

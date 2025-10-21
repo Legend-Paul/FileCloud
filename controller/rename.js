@@ -3,51 +3,32 @@ const prisma = require("../utils/prisma");
 const renameHandler = async (req, res) => {
     const path = req.originalUrl;
     const back = path.split("/").slice(0, -2).join("/");
-    const itemType = path.split("/").at(1).toUpperCase().slice(0, -1); // file or folder
+
     const { renameItem, newFileName } = req.body;
-    const { id, type, fileType } = JSON.parse(renameItem);
+    const { itemToRename, type } = JSON.parse(renameItem);
     const fileHasExtension = newFileName.includes(".");
     let finalNewFileName = newFileName;
-    if (type === "files" && !fileHasExtension && fileType) {
-        finalNewFileName = newFileName + "." + fileType;
+    if (type === "files" && !fileHasExtension && itemToRename.mimeType) {
+        finalNewFileName = newFileName + "." + itemToRename.mimeType;
     }
-    const item =
-        type === "files"
-            ? await prisma.file.findFirst({
-                  where: {
-                      name: finalNewFileName,
-                      mimeType: fileType,
-                      owner: req.user,
-                  },
-              })
-            : await prisma.folder.findFirst({
-                  where: {
-                      name: newFileName,
-                      owner: req.user,
-                      type: itemType,
-                  },
-              });
-    type === "files"
-        ? await prisma.file.update({
+
+    type === "folders"
+        ? await prisma.folder.update({
               where: {
-                  id,
-                  mimeType: fileType,
+                  id: itemToRename.id,
                   owner: req.user,
               },
               data: {
-                  name: item
-                      ? finalNewFileName + "-" + Date.now()
-                      : finalNewFileName,
+                  name: finalNewFileName,
               },
           })
-        : await prisma.folder.update({
+        : await prisma.file.update({
               where: {
-                  id,
-                  type: itemType,
+                  id: itemToRename.id,
                   owner: req.user,
               },
               data: {
-                  name: item ? newFileName + "-" + Date.now() : newFileName,
+                  name: finalNewFileName,
               },
           });
     res.redirect(back);
