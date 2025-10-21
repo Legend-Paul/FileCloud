@@ -32,8 +32,7 @@ const homepageHandler = async (req, res) => {
                     },
                 }),
             ]);
-        const totalSize =
-            Math.round(totalSizeResult._sum.size / 1000000, 2) || 0;
+        const totalSize = totalSizeResult._sum.size || 0;
 
         res.render("home", { files, totlalFiles, totalFolders, totalSize });
     } catch (err) {

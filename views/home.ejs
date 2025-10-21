@@ -21,7 +21,9 @@
                 <div class="content">
                     <% if (!locals.path) {%>
                     <!-- Files grid -->
-                    <%- include("partials/filesGrid.ejs") %> <%} %>
+                    <%- include("partials/filesGrid.ejs", {totlalFiles:
+                    locals.totlalFiles, totalFolders: locals.totalFolders,
+                    totalSize: locals.totalSize}) %> <%} %>
                     <!--folder content -->
                     <%- include("partials/folderContent.ejs", {files:
                     locals.files, folders: locals.folders, path: locals.path,

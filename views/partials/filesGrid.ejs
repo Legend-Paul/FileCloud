@@ -1,13 +1,14 @@
 <div class="files-summary">
     <div class="files-grid">
-        <a href="/Documents" class="documents category file-card">
-            <h3>Documents</h3>
+        <div class="documents category file-card">
+            <h3>Your Summary</h3>
             <div class="file-card-summary">
-                <p>2.4 MB</p>
-                <p class="file-amount">4 files</p>
+                <p><%= totalSize %> B</p>
+                <p class="file-amount"><%= totalFolders %> folders</p>
+                <p class="file-amount"><%= totlalFiles %> files</p>
             </div>
-        </a>
-        <a href="/Images" class="images category file-card">
+        </div>
+        <!-- <a href="/Images" class="images category file-card">
             <h3>Images</h3>
             <div class="file-card-summary">
                 <p>1.4 MB</p>
@@ -27,7 +28,7 @@
                 <p>215.4 MB</p>
                 <p class="file-amount">5 files</p>
             </div>
-        </a>
+        </a> -->
     </div>
     <div class="content-header">
         <h2>Recent Files</h2>
